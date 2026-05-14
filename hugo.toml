@@ -1,0 +1,33 @@
+baseURL = 'https://chefcinnamon.github.io/memo/'
+languageCode = 'en-US'
+title = 'Memo Box'
+
+[params]
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+
+  [[menus.main]]
+    name = 'Posts'
+    pageRef = '/posts'
+    weight = 20
+
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = '0.93.0'
+

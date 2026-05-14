@@ -1,0 +1,7 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main rounded square background -->
+  <rect x="1" y="1" width="30" height="30" rx="8" ry="8" fill="#1a202c" stroke="#4a5568" stroke-width="2"/>
+
+  <!-- Large white square in center -->
+  <rect x="8.5" y="8.5" width="15" height="15" rx="2" ry="2" fill="#ffffff" stroke="#4a5568" stroke-width="1"/>
+</svg>

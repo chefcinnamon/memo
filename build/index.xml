@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Memo on Memo Box</title><link>https://auroramonet.github.io/memo/</link><description>Recent content in Memo on Memo Box</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://auroramonet.github.io/memo/index.xml" rel="self" type="application/rss+xml"/><item><title>Epoch 4: Makemore, Part 1</title><link>https://auroramonet.github.io/memo/posts/epoch4/</link><pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch4/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, I&amp;rsquo;m Mon, and here is Epoch 4, Makemore Part 1.&lt;br&gt;&lt;br&gt; Makemore is a character-level language model, where each character is a token.
+The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
+&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Step 1: Setup&lt;/strong&gt;:
+Setup the virtual environment, and run the jupyter notebook &lt;br&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mkdir makemore_tutorial
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cd makemore_tutorial
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;python3 -m venv venv
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;source venv/bin/activate
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;pip install jupyter
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;jupyter notebook
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br&gt;
+&lt;p&gt;And make a new notebook: &lt;em&gt;makemore&lt;/em&gt;
+&lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 3: Micrograd, Part 3</title><link>https://auroramonet.github.io/memo/posts/epoch3/</link><pubDate>Tue, 30 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch3/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, I&amp;rsquo;m Mon, This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons&lt;/p&gt;
+&lt;h2 id="lets-train-manually-with-a-neuron"&gt;Let&amp;rsquo;s train manually with a neuron!&lt;/h2&gt;
+&lt;p&gt;Let me go through a neuron first, an abstract about its mechanism with a practical example:&lt;/p&gt;</description></item><item><title>Epoch 2: Micrograd, Part 2</title><link>https://auroramonet.github.io/memo/posts/epoch2/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch2/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi! I&amp;rsquo;m Mon, this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the &lt;strong&gt;addition&lt;/strong&gt; and &lt;strong&gt;multiplication&lt;/strong&gt; and build a tiny engine that can calculate &lt;strong&gt;local derivatives&lt;/strong&gt; and &lt;strong&gt;global gradients&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Before jumping to Neural Network (nn), we should implement:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;subtraction (errors, losses)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;powers (squared loss)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;division (normalization, scaling)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;non-linear functions&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="content-completing-operations"&gt;Content: Completing Operations&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Subtraction&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;$$
+c = a - b
+$$&lt;/p&gt;
+&lt;p&gt;rewrite:
+$$
+c = a + (-b)
+$$&lt;/p&gt;</description></item><item><title>Epoch1: Micrograd, Part 1</title><link>https://auroramonet.github.io/memo/posts/epoch1/</link><pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch1/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi! I&amp;rsquo;m Mon. I&amp;rsquo;ve decided to study AI, ML&amp;hellip; almost every day with doing practical projects.&lt;/p&gt;
+&lt;p&gt;I write about them here.&lt;/p&gt;
+&lt;p&gt;This is Epoch 1: the very first step.&lt;/p&gt;
+&lt;h2 id="content-gradient"&gt;Content: Gradient&lt;/h2&gt;
+&lt;p&gt;Building a neural network; a tiny autograd engine (micrograd) — an automatic differentiation engine with backpropagation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Derivative&lt;/strong&gt; (single input change → single output change): the rate of change.&lt;/p&gt;
+&lt;div class="math-container"&gt;
+&lt;p&gt;Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:&lt;/p&gt;</description></item></channel></rss>

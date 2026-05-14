@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <header>
+    {{ partial "header.html" . }}
+  </header>
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer>
+    {{ partial "footer.html" . }}
+  </footer>
+  
+  <!-- Initialize GLightbox for images -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find all images in the content area
+      const contentImages = document.querySelectorAll('main article img, main .content img, main img');
+      
+      contentImages.forEach(function(img) {
+        // Skip if already wrapped in a link
+        if (img.parentElement.tagName === 'A') {
+          return;
+        }
+        
+        // Create a link wrapper for the image
+        const link = document.createElement('a');
+        link.href = img.src;
+        link.setAttribute('data-glightbox', '');
+        link.setAttribute('data-gallery', 'gallery');
+        
+        // Copy alt text as title for lightbox
+        if (img.alt) {
+          link.setAttribute('data-title', img.alt);
+        }
+        
+        // Wrap the image
+        img.parentNode.insertBefore(link, img);
+        link.appendChild(img);
+      });
+      
+      // Initialize GLightbox
+      const lightbox = GLightbox({
+        selector: 'a[data-glightbox]',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: false
+      });
+      
+      // Handle python-copy code blocks
+      const pythonCopyBlocks = document.querySelectorAll('code.language-python-copy, code[class*="python-copy"], code[data-lang="python-copy"]');
+      
+      pythonCopyBlocks.forEach(function(codeBlock) {
+        // Extract the code text (decode HTML entities)
+        let codeText = codeBlock.textContent || codeBlock.innerText;
+        
+        // Find the parent pre element
+        const preElement = codeBlock.closest('pre');
+        if (!preElement) return;
+        
+        // Find parent container (could be .highlight div or just the parent)
+        const parentContainer = preElement.parentElement;
+        if (!parentContainer) return;
+        
+        // Hide the code block
+        preElement.style.display = 'none';
+        
+        // Create copy button container
+        const container = document.createElement('div');
+        container.className = 'code-copy-container';
+        
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'code-copy-button';
+        copyButton.textContent = 'Copy Code';
+        copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+        
+        // Copy functionality
+        copyButton.addEventListener('click', function() {
+          // Use modern Clipboard API
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(codeText).then(function() {
+              // Show success feedback
+              copyButton.textContent = 'Copied!';
+              copyButton.classList.add('copied');
+              
+              setTimeout(function() {
+                copyButton.textContent = 'Copy Code';
+                copyButton.classList.remove('copied');
+              }, 2000);
+            }).catch(function(err) {
+              console.error('Failed to copy code:', err);
+              copyButton.textContent = 'Failed';
+              setTimeout(function() {
+                copyButton.textContent = 'Copy Code';
+              }, 2000);
+            });
+          } else {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+              document.execCommand('copy');
+              copyButton.textContent = 'Copied!';
+              copyButton.classList.add('copied');
+              
+              setTimeout(function() {
+                copyButton.textContent = 'Copy Code';
+                copyButton.classList.remove('copied');
+              }, 2000);
+            } catch (err) {
+              console.error('Failed to copy code:', err);
+              copyButton.textContent = 'Failed';
+              setTimeout(function() {
+                copyButton.textContent = 'Copy Code';
+              }, 2000);
+            }
+            
+            document.body.removeChild(textArea);
+          }
+        });
+        
+        container.appendChild(copyButton);
+        
+        // Insert the button container before the pre element's parent
+        parentContainer.insertBefore(container, preElement);
+      });
+    });
+  </script>
+</body>
+</html>

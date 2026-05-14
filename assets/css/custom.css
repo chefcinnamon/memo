@@ -1,0 +1,233 @@
+/* You can add custom style here */
+
+
+
+/* Remove body centering for smaller screens */
+@media (max-width: 630px) {
+  body {
+    justify-content: normal !important;
+  }
+}
+
+/* Remove max-width restriction on code blocks for mobile */
+@media (max-device-width: 600px) {
+  pre {
+    max-width: none !important;
+  }
+}
+
+/* Disable counter for headings with .no-counter class */
+.no-counter {
+  counter-increment: none !important;
+}
+
+.no-counter::before {
+  content: none !important;
+}
+
+/* Math expression containers */
+.math-container {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+  font-family: 'Courier New', monospace;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.math-container p {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Light background with Dracula theme syntax highlighting */
+.highlight {
+  background: #f5f5f5 !important;
+  border: 1px solid #e9ecef !important;
+  border-radius: 6px !important;
+}
+
+.highlight pre {
+  background: #f5f5f5 !important;
+  color: #2d3748 !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  font-family: 'Courier New', monospace !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  overflow-x: auto !important;
+}
+
+/* Dracula theme syntax highlighting colors - override inline styles */
+.highlight pre code span,
+.highlight pre span,
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6272a4 !important; /* Blue-gray for comments */
+}
+
+.token.punctuation {
+  color: #2d3748 !important; /* Dark text for punctuation */
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #50fa7b !important; /* Green for properties/tags */
+}
+
+.token.boolean,
+.token.number {
+  color: #bd93f9 !important; /* Purple for numbers */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #f1fa8c !important; /* Yellow for strings */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+  color: #ffb86c !important; /* Orange for operators/variables */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #50fa7b !important; /* Green for functions */
+}
+
+.token.keyword {
+  color: #ff79c6 !important; /* Pink for keywords */
+}
+
+.token.regex,
+.token.important {
+  color: #f1fa8c !important; /* Yellow for special tokens */
+}
+
+/* Override Prism.js inline styles */
+.highlight pre[style*="background-color:#272822"] {
+  background: #f5f5f5 !important;
+  color: #2d3748 !important;
+}
+
+.highlight pre span[style*="color:#66d9ef"] { /* keywords like 'class', 'def' */
+  color: #ff79c6 !important; /* Dracula pink */
+}
+
+.highlight pre span[style*="color:#a6e22e"] { /* function names, class names */
+  color: #50fa7b !important; /* Dracula green */
+}
+
+.highlight pre span[style*="color:#f92672"] { /* operators like '.', '=' */
+  color: #ffb86c !important; /* Dracula orange */
+}
+
+.highlight pre span[style*="color:#ae81ff"] { /* numbers */
+  color: #bd93f9 !important; /* Dracula purple */
+}
+
+.highlight pre span[style*="color:#75715e"] { /* comments */
+  color: #6272a4 !important; /* Dracula blue-gray */
+}
+
+/* Add spacing before section headers */
+h2 {
+  margin-top: 3rem !important;
+}
+
+/* Add spacing before the first section */
+h2:first-of-type {
+  margin-top: 2rem !important;
+}
+
+/* Make images look clickable */
+main img {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+main img:hover {
+  opacity: 0.9;
+}
+
+/* Style for images wrapped in lightbox links */
+main a[data-glightbox] {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Hide code blocks with python-copy language - JavaScript handles this dynamically */
+
+/* Style for copy button container */
+.code-copy-container {
+  position: relative;
+  margin: 16px 0;
+}
+
+.code-copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #50fa7b;
+  color: #2d3748;
+  border: 1px solid #50fa7b;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.code-copy-button:hover {
+  background: #45e06a;
+  border-color: #45e06a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(80, 250, 123, 0.3);
+}
+
+.code-copy-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(80, 250, 123, 0.2);
+}
+
+.code-copy-button.copied {
+  background: #bd93f9;
+  border-color: #bd93f9;
+  color: #2d3748;
+}
+
+.code-copy-button.copied:hover {
+  background: #a78bf0;
+  border-color: #a78bf0;
+}
+
+.code-copy-button::before {
+  content: "📋";
+  font-size: 16px;
+}
+
+.code-copy-button.copied::before {
+  content: "✓";
+  font-size: 16px;
+}

@@ -1,0 +1,160 @@
+<!doctype html><html lang=en-US dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Epoch1: Micrograd, Part 1 | Memo Box</title><meta property="og:title" content="Epoch1: Micrograd, Part 1"><meta property="og:type" content="article"><meta property="og:url" content="https://auroramonet.github.io/memo/posts/epoch1/"><meta property="og:image" content="https://files.catbox.moe/zh3y51.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://files.catbox.moe/zh3y51.png"><link rel=icon type=image/svg+xml href=/memo/favicon.svg><link rel=apple-touch-icon href=/memo/favicon.svg><meta name=theme-color content="#1a202c"><link rel=stylesheet href=/memo/css/main.min.7fa279f525716b6c44ad4d86208dcd4c1fb7ea3ce69b8f00834bf701768f3a60.css integrity="sha256-f6J59SVxa2xErU2GII3NTB+36jzmm48Ag0v3AXaPOmA=" crossorigin=anonymous><link rel=stylesheet href=/memo/css/custom.min.844095016ac2104500a88abc547e4d8fe47e33b7b332f8fe24c1939c38d7b34d.css integrity="sha256-hECVAWrCEEUAqIq8VH5Nj+R+M7ezMvj+JMGTnDjXs00=" crossorigin=anonymous><script>MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]},svg:{fontCache:"global"}}</script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js></script></head><body><header><nav class=path-nav><ul><li>/
+<a href=/memo/>Memo Box</a>
+/</li><li><a href=/memo/posts/>Posts</a>
+/</li><li class=current><a href=/memo/posts/epoch1/>Epoch1: Micrograd, Part 1</a></li></ul></nav></header><main><h1>Epoch1: Micrograd, Part 1</h1><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ul><li><a href=#intro>Intro</a></li><li><a href=#content-gradient>Content: Gradient</a></li><li><a href=#content-micrograd>Content: Micrograd</a></li><li><a href=#resources>Resources</a></li></ul></nav></div></nav><h2 id=intro>Intro</h2><p>Hi! I&rsquo;m Mon. I&rsquo;ve decided to study AI, ML&mldr; almost every day with doing practical projects.</p><p>I write about them here.</p><p>This is Epoch 1: the very first step.</p><h2 id=content-gradient>Content: Gradient</h2><p>Building a neural network; a tiny autograd engine (micrograd) — an automatic differentiation engine with backpropagation.</p><p><strong>Derivative</strong> (single input change → single output change): the rate of change.</p><div class=math-container><p>Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:</p><p>if $x=3$, then $f(x)=9$</p><p>if $x=4$, then $f(x)=16$</p><p>Derivative:</p><p>$\frac{16-9}{4-3} = \frac{7}{1.00} = 7.00$</p></div><p><strong>Gradient</strong>: how a single output changes by adjusting multiple inputs.</p><div class=math-container><p>Example: if $f(x,y) = x^2 + y^2$ at point (1,2):</p><p>Partial derivative w.r.t. x: $\frac{\partial f}{\partial x} = 2x = 2(1) = 2$</p><p>Partial derivative w.r.t. y: $\frac{\partial f}{\partial y} = 2y = 2(2) = 4$</p><p>Gradient vector: $\nabla f = \langle 2, 4 \rangle$</p><p>This points in the direction of steepest ascent from (1,2)</p></div><p><strong>Extended description</strong>: We have a function with two inputs $f(x, y)$ (say it as &ldquo;f of x comma y&rdquo;). $f(x, y) = x^2 + y^2$ (say it as &ldquo;x squared plus y squared&rdquo;).</p><p>Partial derivative of f with respect to x: $\frac{\partial f}{\partial x}$ means: How fast does f change if I move x a tiny bit, while y stays frozen?</p><p>In this example the derivative of $x^2 \rightarrow 2x$, derivative of $y^2 \rightarrow 0$ (because y is treated as fixed).</p><p>How we calculate derivative: $f&rsquo;(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$ (say it as: &ldquo;The derivative of f at x equals the limit as h goes to zero of (f of x plus h minus f of x) divided by h&rdquo;).</p><p>Derivatives are also written as $f&rsquo;(x)$ or $\frac{df}{dx}$.</p><p>So we got $\frac{\partial f}{\partial x} = 2x$ (say it as &ldquo;partial derivative of f with respect to x&rdquo;).</p><p>E.g. $\frac{\partial f}{\partial x}$ at (1, 2) = 2 × 1 = 2. &ldquo;At the point one comma two, the partial derivative with respect to x equals two&rdquo; means: If I move a tiny bit in the x direction, the height goes up by about 2 per unit.</p><p>From the same function: $f(x, y) = x^2 + y^2$.</p><p>Derivative of $y^2 \rightarrow 2y$, derivative of $x^2 \rightarrow 0$ (x is frozen now).</p><p>So: $\frac{\partial f}{\partial y} = 2y$ (say it as &ldquo;partial derivative of f with respect to y&rdquo;).</p><p>E.g. $\frac{\partial f}{\partial y}$ at (1, 2) = 2 × 2 = 4. &ldquo;At the point one comma two, the partial derivative with respect to y equals four&rdquo;.</p><p><strong>Gradient Vector</strong>: Putting all partial derivatives together into a vector. For our function $f(x, y) = x^2 + y^2$, the gradient is $\nabla f = \langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \rangle = \langle 2x, 2y \rangle$.</p><p>At point (1, 2): $\nabla f = \langle 2(1), 2(2) \rangle = \langle 2, 4 \rangle$</p><p>This vector points in the direction of steepest ascent. The gradient vector points exactly in the direction that maximizes the slope. That slope is the fastest rate of increase.</p><p>In neural networks, we want to go in the opposite direction (steepest descent) to minimize the loss function.</p><p><strong>Weight</strong>: input.</p><p><strong>Loss</strong>: output.</p><p><strong>Backward</strong>: going from the final result back to the inputs to figure out how each one contributed.</p><p><strong>Backpropagation</strong>: An algorithm for computing gradients by repeatedly applying Backward with respect to all weights, in order to find directions where the Loss decreases.</p><p>Forward + Backward + Update loop = train (update parameter and weight).</p><h2 id=content-micrograd>Content: Micrograd</h2><ol><li><p>Let&rsquo;s begin to build a Micrograd from scratch!<br>Basically Micrograd is a tiny neural network library that computes gradients efficiently through a chain of operations to minimize the loss, to train.</p></li><li><p>These are the concepts:</p></li></ol><p>2.1 Functions of numbers: Micrograd treats operations like addition, multiplication, powers as functions it can track</p><p>2.2 Gradient vector: How to change each input to increase or decrease the output</p><p>2.3 Direction of steepest ascent / descent: Gradient points uphill<br>For training, we usually go opposite direction (downhill) to minimize loss</p><p>2.4 Backpropagation: A way to compute gradients efficiently through a chain of operations</p><p><br><br><br></p><p><strong>Let&rsquo;s go!</strong></p><p>Make sure you have Python 3 in your terminal:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>python3 --version
+</span></span></code></pre></div><p>Create a workspace (virtual env):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir micrograd_tutorial
+</span></span><span style=display:flex><span>cd micrograd_tutorial
+</span></span><span style=display:flex><span>python3 -m venv venv
+</span></span><span style=display:flex><span>source venv/bin/activate
+</span></span><span style=display:flex><span>pip install jupyter
+</span></span><span style=display:flex><span>jupyter notebook
+</span></span></code></pre></div><p>It opens a browser tab, File > Create a new notebook:</p><p>We are going to implement:</p><ul><li><strong>Gradient</strong></li><li><strong>Neuron: one weighted input + bias + activation</strong></li><li><strong>Layer: a list of neurons</strong></li><li><strong>MLP: a sequence of layers</strong></li></ul><p>Let&rsquo;s begin with Gradient</p><p><strong>1. First we create an object called &ldquo;Value&rdquo;</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Value</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, data):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data <span style=color:#f92672>=</span> data    <span style=color:#75715e># the number</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>grad <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.0</span>     <span style=color:#75715e># gradient</span>
+</span></span></code></pre></div><p>For now it holds a number.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>x <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>3.0</span>)
+</span></span><span style=display:flex><span>y <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>4.0</span>)
+</span></span><span style=display:flex><span>print(x<span style=color:#f92672>.</span>data, x<span style=color:#f92672>.</span>grad)  <span style=color:#75715e># 3.0 0.0</span>
+</span></span></code></pre></div><p><strong>2. Track history for backprop</strong></p><p>Every time you perform an operation, you want to remember how it was computed.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Value</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, data, _children<span style=color:#f92672>=</span>(), _op<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>, name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data <span style=color:#f92672>=</span> data
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>grad <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.0</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_prev <span style=color:#f92672>=</span> set(_children)  <span style=color:#75715e># parents</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_op <span style=color:#f92672>=</span> _op               <span style=color:#75715e># operation</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>name <span style=color:#f92672>=</span> name
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_backward <span style=color:#f92672>=</span> <span style=color:#66d9ef>lambda</span>: <span style=color:#66d9ef>None</span>  <span style=color:#75715e># will define later</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__repr__</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Value(data=</span><span style=color:#e6db74>{</span>self<span style=color:#f92672>.</span>data<span style=color:#e6db74>}</span><span style=color:#e6db74>, grad=</span><span style=color:#e6db74>{</span>self<span style=color:#f92672>.</span>grad<span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># for better readability, if not using this, we can see the memory locations</span>
+</span></span></code></pre></div><p><br><br></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># example</span>
+</span></span><span style=display:flex><span>a <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>3.0</span>)
+</span></span><span style=display:flex><span>b <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>4.0</span>)
+</span></span><span style=display:flex><span>c <span style=color:#f92672>=</span> Value(a<span style=color:#f92672>.</span>data <span style=color:#f92672>+</span> b<span style=color:#f92672>.</span>data, (a, b), <span style=color:#e6db74>&#39;+&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(a<span style=color:#f92672>.</span>data, a<span style=color:#f92672>.</span>grad)
+</span></span><span style=display:flex><span>print(c<span style=color:#f92672>.</span>data, c<span style=color:#f92672>.</span>_prev)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;Parent values:&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> parent <span style=color:#f92672>in</span> c<span style=color:#f92672>.</span>_prev:
+</span></span><span style=display:flex><span>    print(parent<span style=color:#f92672>.</span>data)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3.0 0.0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 7.0 {Value(data=3.0, grad=0.0), Value(data=4.0, grad=0.0)}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Parent values:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3.0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 4.0</span>
+</span></span></code></pre></div><p>From this we can make graph of 3 things: result, parents, operations</p><p>let&rsquo;s make it less manual work, by defining operations:</p><p><strong>addition</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__add__</span>(self, other):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># ensure other is a Value so constants become part of the computation graph</span>
+</span></span><span style=display:flex><span>    other <span style=color:#f92672>=</span> other <span style=color:#66d9ef>if</span> isinstance(other, Value) <span style=color:#66d9ef>else</span> Value(other)
+</span></span><span style=display:flex><span>    out <span style=color:#f92672>=</span> Value(
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data <span style=color:#f92672>+</span> other<span style=color:#f92672>.</span>data,   <span style=color:#75715e># numeric result</span>
+</span></span><span style=display:flex><span>        (self, other),            <span style=color:#75715e># parents</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;+&#39;</span>                        <span style=color:#75715e># operation</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_backward</span>():
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>grad <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1.0</span> <span style=color:#f92672>*</span> out<span style=color:#f92672>.</span>grad
+</span></span><span style=display:flex><span>        other<span style=color:#f92672>.</span>grad <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1.0</span> <span style=color:#f92672>*</span> out<span style=color:#f92672>.</span>grad
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    out<span style=color:#f92672>.</span>_backward <span style=color:#f92672>=</span> _backward
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> out
+</span></span></code></pre></div><p><strong>multiplication</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__mul__</span>(self, other):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># ensure other is a Value so constants become part of the computation graph</span>
+</span></span><span style=display:flex><span>    other <span style=color:#f92672>=</span> other <span style=color:#66d9ef>if</span> isinstance(other, Value) <span style=color:#66d9ef>else</span> Value(other)
+</span></span><span style=display:flex><span>    out <span style=color:#f92672>=</span> Value(
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data <span style=color:#f92672>*</span> other<span style=color:#f92672>.</span>data,   <span style=color:#75715e># numeric result</span>
+</span></span><span style=display:flex><span>        (self, other),            <span style=color:#75715e># parents</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;*&#39;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_backward</span>():
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>grad <span style=color:#f92672>+=</span> other<span style=color:#f92672>.</span>data <span style=color:#f92672>*</span> out<span style=color:#f92672>.</span>grad
+</span></span><span style=display:flex><span>        other<span style=color:#f92672>.</span>grad <span style=color:#f92672>+=</span> self<span style=color:#f92672>.</span>data <span style=color:#f92672>*</span> out<span style=color:#f92672>.</span>grad
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    out<span style=color:#f92672>.</span>_backward <span style=color:#f92672>=</span> _backward
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> out
+</span></span></code></pre></div><p>example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>a <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>2.0</span>)
+</span></span><span style=display:flex><span>b <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>3.0</span>)
+</span></span><span style=display:flex><span>c <span style=color:#f92672>=</span> a <span style=color:#f92672>*</span> b <span style=color:#f92672>+</span> b
+</span></span></code></pre></div><p>Internally, this creates:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>tmp<span style=color:#f92672>.</span>_prev <span style=color:#f92672>=</span> {a, b}
+</span></span><span style=display:flex><span>c<span style=color:#f92672>.</span>_prev <span style=color:#f92672>=</span> {tmp, b}
+</span></span><span style=display:flex><span>a<span style=color:#f92672>.</span>_prev <span style=color:#f92672>=</span> {}
+</span></span><span style=display:flex><span>b<span style=color:#f92672>.</span>_prev <span style=color:#f92672>=</span> {}
+</span></span></code></pre></div><p>graph:</p><pre tabindex=0><code>a ──┐
+    ├─ (*) → tmp ───┐
+b ──┘               ├─ (+) → c
+                 b ─┘
+</code></pre><p><code>tmp = a * b</code><br><code>c = tmp + b</code></p><p><strong>important</strong><br><strong>_prev</strong> tells backprop where to go<br><strong>_backward</strong> tells backprop what math to do</p><p>now lets make the backward:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>backward</span>(self):
+</span></span><span style=display:flex><span>    topo <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    visited <span style=color:#f92672>=</span> set()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>build</span>(v):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> v <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> visited:
+</span></span><span style=display:flex><span>            visited<span style=color:#f92672>.</span>add(v)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> child <span style=color:#f92672>in</span> v<span style=color:#f92672>.</span>_prev:
+</span></span><span style=display:flex><span>                build(child)
+</span></span><span style=display:flex><span>            topo<span style=color:#f92672>.</span>append(v)
+</span></span><span style=display:flex><span>    build(self)         <span style=color:#75715e># gathers nodes in topological order</span>
+</span></span><span style=display:flex><span>    self<span style=color:#f92672>.</span>grad <span style=color:#f92672>=</span> <span style=color:#ae81ff>1.0</span>      <span style=color:#75715e># seed</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> v <span style=color:#f92672>in</span> reversed(topo):
+</span></span><span style=display:flex><span>        v<span style=color:#f92672>.</span>_backward()   <span style=color:#75715e># call stored backward function</span>
+</span></span></code></pre></div><p>same example</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>a <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>2.0</span>)
+</span></span><span style=display:flex><span>b <span style=color:#f92672>=</span> Value(<span style=color:#ae81ff>3.0</span>)
+</span></span></code></pre></div><br><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(a<span style=color:#f92672>.</span>data) <span style=color:#75715e>#2.0</span>
+</span></span><span style=display:flex><span>print(b<span style=color:#f92672>.</span>data) <span style=color:#75715e>#3.0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(a<span style=color:#f92672>.</span>_prev) <span style=color:#75715e>#{}</span>
+</span></span><span style=display:flex><span>print(b<span style=color:#f92672>.</span>_prev) <span style=color:#75715e>#{}</span>
+</span></span></code></pre></div><p><strong>See the graph</strong><br></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print(<span style=color:#e6db74>&#34;c.data:&#34;</span>, c<span style=color:#f92672>.</span>data)
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;c._prev:&#34;</span>, c<span style=color:#f92672>.</span>_prev)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;tmp.data:&#34;</span>, tmp<span style=color:#f92672>.</span>data)
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;tmp._prev:&#34;</span>, tmp<span style=color:#f92672>.</span>_prev)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># c.data: 9.0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># c._prev: {tmp, b}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># tmp.data: 6.0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># tmp._prev: {a, b}</span>
+</span></span></code></pre></div><p>When we run <code>c.backward()</code><br>It begins to run <code>build(v)</code></p><p><strong>Step 1: Topological sort</strong></p><ol><li>Mark the current node <code>v</code> as visited</li><li>Recursively call itself on all parent nodes (<code>v._prev</code>)</li><li>Add the node <code>v</code> to <code>topo</code> <strong>after visiting its parents</strong></li></ol><p><strong>Effect:</strong> topological sorting of the computation graph ensures parents always appear before children.</p><p><strong>Step by step example:</strong></p><ul><li><p>Visit <code>c</code></p><ul><li>Not visited → mark <code>c</code> visited</li><li>Look at <code>c._prev = {tmp, b}</code> → call <code>build(tmp)</code> and <code>build(b)</code></li></ul></li><li><p>Visit <code>tmp</code></p><ul><li>Not visited → mark <code>tmp</code> visited</li><li>Look at <code>tmp._prev = {a, b}</code> → call <code>build(a)</code> and <code>build(b)</code></li></ul></li><li><p>Visit <code>a</code></p><ul><li>Not visited → mark <code>a</code> visited</li><li><code>a._prev = {}</code> → no parents</li><li>Append <code>a</code> to <code>topo</code></li></ul></li><li><p>Visit <code>b</code> from <code>tmp</code></p><ul><li>Not visited → mark <code>b</code> visited</li><li><code>b._prev = {}</code> → no parents</li><li>Append <code>b</code> to <code>topo</code></li></ul></li><li><p>Back to <code>tmp</code></p><ul><li>Parents done → append <code>tmp</code> to <code>topo</code></li></ul></li><li><p>Visit <code>b</code> from <code>c</code></p><ul><li>Already visited → skip</li></ul></li><li><p>Back to <code>c</code></p><ul><li>Parents done → append <code>c</code> to <code>topo</code></li></ul></li></ul><p><strong>Result:</strong></p><pre tabindex=0><code>topo = [a, b, tmp, c]
+</code></pre><blockquote><p>Note: Parents always appear before children, so we reverse the topo in backprop with <code>reversed(topo)</code>.</p></blockquote><hr><p><strong>Step 2: Core logic of chain rule</strong></p><p>$$
+\frac{dL}{dx} = \frac{dL}{dy} \cdot \frac{dy}{dx}
+$$</p><p>Where:</p><ul><li><code>L</code> = final loss / output (<code>c</code> in our example)</li><li><code>x</code> = any earlier node or parents (<code>a</code>, <code>b</code>)</li><li><code>y</code> = intermediate node</li></ul><br><hr><p><strong>Step 3: Seed gradient</strong></p><p>Start at the final output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>c<span style=color:#f92672>.</span>grad <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>  <span style=color:#75715e># always seed with 1</span>
+</span></span></code></pre></div><hr><p><strong>Step 4: Local derivatives by operation</strong></p><table><thead><tr><th>Operation</th><th>Local derivatives</th></tr></thead><tbody><tr><td>Addition: <code>c = a + b</code></td><td>∂c/∂a = 1, ∂c/∂b = 1</td></tr><tr><td>Multiplication: <code>c = a * b</code></td><td>∂c/∂a = b, ∂c/∂b = a</td></tr><tr><td>Division: $c = \frac{a}{b}$</td><td>$\frac{\partial c}{\partial a} = \frac{1}{b}$, $\frac{\partial c}{\partial b} = -\frac{a}{b^2}$</td></tr><tr><td>Power: $c = a^b$</td><td>$\frac{\partial c}{\partial a} = b \cdot a^{b-1}$</td></tr><tr><td>Tanh: <code>c = tanh(a)</code></td><td>∂c/∂a = 1 - tanh(a)^2</td></tr></tbody></table><hr><p><strong>Step 5: Example graph and forward pass</strong></p><pre tabindex=0><code>a ──┐
+    ├─ (*) → tmp ───┐
+b ──┘               ├─ (+) → c
+                 b ─┘
+</code></pre><pre tabindex=0><code>a = 2
+b = 3
+tmp = a * b = 6
+c   = tmp + b = 6 + 3 = 9
+</code></pre><hr><p><strong>Step 6: Backprop step by step</strong></p><p>$$
+v.grad += \sum_{\text{children } c} \left( c.grad \cdot \frac{\partial c}{\partial v} \right)
+$$</p><ol><li>Backprop from c</li></ol><ul><li><code>c.grad = 1</code> (seed)</li><li><code>c</code> depends on <code>tmp</code> and <code>b</code></li><li>Local derivatives:</li></ul><pre tabindex=0><code>∂c/∂tmp = 1
+∂c/∂b   = 1
+</code></pre><ul><li>Contribution to parents:</li></ul><pre tabindex=0><code>tmp.grad += c.grad * ∂c/∂tmp = 1 * 1 = 1
+b.grad   += c.grad * ∂c/∂b   = 1 * 1 = 1
+</code></pre><ol start=2><li>Backprop through tmp = a * b</li></ol><ul><li>Local derivatives:</li></ul><pre tabindex=0><code>∂tmp/∂a = b = 3
+∂tmp/∂b = a = 2
+</code></pre><ul><li>Contribution to parents:</li></ul><pre tabindex=0><code>a.grad += tmp.grad * ∂tmp/∂a = 1 * 3 = 3
+b.grad += tmp.grad * ∂tmp/∂b = 1 + (1 * 2) = 3
+</code></pre><hr><p><strong>Step 7: Final gradients</strong></p><pre tabindex=0><code>a.grad   = 3
+b.grad   = 3
+tmp.grad = 1
+c.grad   = 1
+</code></pre><hr><p><strong>Step 8: Try to change inputs to see the gradient changes</strong></p><p>in <code>c = a * b + b</code></p><p>example 1:</p><p>Forward pass:</p><pre tabindex=0><code>a: 2.0
+b: 3.0
+c: 9.0
+</code></pre><p>Backward pass (gradients):</p><pre tabindex=0><code>a.grad: 3.0
+b.grad: 3.0
+c.grad: 1.0
+</code></pre><p>example 2:</p><p>Forward pass:</p><pre tabindex=0><code>a: 2.0001
+b: 3.01
+c: 9.030301
+</code></pre><p>Backward pass (gradients):</p><pre tabindex=0><code>a.grad: 3.01
+b.grad: 3.0001
+c.grad: 1.0
+</code></pre><p>Example 3:</p><p><img src=https://auroramonet.github.io/memo/img/epoch1-example.png alt=epoch1-example></p><p>Next epoch will be about building a tiny neural network.</p><h2 id=resources>Resources</h2><h3 id=micrograd---a-tiny-autograd-engine>Micrograd - A Tiny Autograd Engine</h3><p><a href=https://github.com/karpathy/micrograd>GitHub: karpathy/micrograd</a></p><p>A tiny scalar-valued autograd engine and a neural net library on top of it with PyTorch-like API, created by Andrej Karpathy.</p><h3 id=the-spelled-out-intro-to-neural-networks-and-backpropagation-building-micrograd>The spelled-out intro to neural networks and backpropagation: building micrograd</h3><iframe width=560 height=315 src=https://www.youtube.com/embed/VMj-3S1tku0 title="YouTube video player" frameborder=0 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe><div class=time><time datetime=2025-12-25>2025-12-25&nbsp;</time></div><div class=comments></div><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer></footer></body></html>
