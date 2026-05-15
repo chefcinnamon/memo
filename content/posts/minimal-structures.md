@@ -18,4 +18,4 @@ I am more interested in niche areas. Niche means the idea is more unique with a 
 
 Crowded category is a signal of higher competition. Competition without having a 10x better solution means probably you are not gonna make it.
 
-I try to put less than one week for building mvp and one week for making the first $ from it.
+I try to put less than one week for building mvp and one week for making the first $/interest from it.
