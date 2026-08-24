@@ -1,5 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Memo Box</title><link>https://auroramonet.github.io/memo/posts/</link><description>Recent content in Posts on Memo Box</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://auroramonet.github.io/memo/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Epoch 4: Makemore, Part 1</title><link>https://auroramonet.github.io/memo/posts/epoch4/</link><pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch4/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, I&amp;rsquo;m Mon, and here is Epoch 4, Makemore Part 1.&lt;br&gt;&lt;br&gt; Makemore is a character-level language model, where each character is a token.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Memo Box</title><link>https://datahatchery.com/posts/</link><description>Recent content in Posts on Memo Box</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://datahatchery.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>minimal structures</title><link>https://datahatchery.com/posts/minimal-structures/</link><pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/minimal-structures/</guid><description>&lt;p&gt;Data Hatchery builds organic minimal structures.&lt;/p&gt;
+&lt;p&gt;Organic means letting the structure grow, change, and adapt to its purpose and usage.&lt;/p&gt;
+&lt;p&gt;Data Hatchery builds tidy, minimal MVPs rather than starting with automatically scalable Kubernetes infrastructure.&lt;/p&gt;
+&lt;p&gt;Data Hatchery focuses on fixing or improving a very specific, narrow pain point rather than covering broad, all-in-one use cases.&lt;/p&gt;
+&lt;p&gt;Data Hatchery aims to be among the best providers for a specific feature, rather than simply being one of many acceptable options.&lt;/p&gt;</description></item><item><title>Epoch 8: Makemore, Part 5</title><link>https://datahatchery.com/posts/epoch8/</link><pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch8/</guid><description>&lt;h2 class="no-counter" id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to make an MLP for Makemore. In this epoch, we learn more about activations, gradients, and BatchNorm.&lt;/p&gt;
+&lt;h2 class="no-counter" id="content-mlp-part-4"&gt;Content: MLP Part 4&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s make our MLP again&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;dictionary: &lt;br&gt;
+&lt;img src="https://datahatchery.com/img/epoch8-dictionary.png" alt="epoch8-dictionary"&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-python-copy" data-lang="python-copy"&gt;#dictionary 
+
+words = open(&amp;#39;names.txt&amp;#39;, &amp;#39;r&amp;#39;).read().splitlines()
+chars = sorted(list(set(&amp;#39;&amp;#39;.join(words))))
+stoi = {s: i+1 for i,s in enumerate(chars)}
+stoi[&amp;#39;.&amp;#39;] = 0
+itos = {i:s for s,i in stoi.items()}
+vocab_size = len(itos)
+print(itos)
+print(vocab_size)
+&lt;/code&gt;&lt;/pre&gt;&lt;br&gt;
+2. dataset: &lt;br&gt;
+&lt;p&gt;&lt;img src="https://datahatchery.com/img/epoch8-dataset.png" alt="epoch8-dataset"&gt;&lt;/p&gt;</description></item><item><title>Epoch 7: Makemore, Part 4</title><link>https://datahatchery.com/posts/epoch7/</link><pubDate>Sat, 10 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch7/</guid><description>&lt;h2 class="no-counter" id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to make the backward pass of the bigram and build a one-layer neural net whose training result was approximately equal to the “normalizing the counts” approach. Then we began to build an MLP with a context of three characters to predict the fourth. We continue building the MLP of Makemore in this epoch.&lt;/p&gt;
+&lt;h2 class="no-counter" id="content-mlp-part-3"&gt;Content: MLP Part 3&lt;/h2&gt;
+&lt;p&gt;We have already created the second layer of the mlp with tanh:&lt;/p&gt;</description></item><item><title>Epoch 6: Makemore, Part 3</title><link>https://datahatchery.com/posts/epoch6/</link><pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch6/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to create the forward pass; now we need to create our backward pass too.&lt;/p&gt;
+&lt;h2 class="no-counter" id="content-bigram-part-8-make-forward-pass-for-bigrams"&gt;Content: Bigram Part 8: Make forward pass for bigrams&lt;/h2&gt;
+&lt;p&gt;At first lets learn some definitions: &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;in &lt;strong&gt;Classification&lt;/strong&gt; we predict a label such as cat vs dog. &lt;br&gt;&lt;br&gt;
+in &lt;strong&gt;Regression&lt;/strong&gt; we predict a number or value.&lt;/p&gt;
+&lt;br&gt;
+In each of these we use different approaches to calculate the loss&lt;br&gt;
+in our micrograd we used mean squared error, and here we use neg log probs &lt;br&gt;&lt;br&gt;
+&lt;p&gt;From the previous epoch the forward pass&lt;/p&gt;</description></item><item><title>Epoch 5: Makemore, Part 2</title><link>https://datahatchery.com/posts/epoch5/</link><pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch5/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery. This is Epoch 5, Makemore Part 2.&lt;/p&gt;
+&lt;h2 class="no-counter" id="content-bigram-part-4-better-efficiency"&gt;Content: Bigram Part 4: Better efficiency&lt;/h2&gt;
+&lt;p&gt;Just a concept to know, before we begin:&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Broadcasting&lt;/strong&gt;: &lt;br&gt;
+Broadcasting is when PyTorch automatically &amp;ldquo;stretches&amp;rdquo; a smaller tensor to match a larger one so element-wise operations can work without copying data. &lt;br&gt; &lt;br&gt;
+e.g.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;A &lt;span style="color:#f92672"&gt;=&lt;/span&gt; torch&lt;span style="color:#f92672"&gt;.&lt;/span&gt;tensor([[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;4&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;5&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;6&lt;/span&gt;]]) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# A.shape: (2, 3)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;b &lt;span style="color:#f92672"&gt;=&lt;/span&gt; torch&lt;span style="color:#f92672"&gt;.&lt;/span&gt;tensor([&lt;span style="color:#ae81ff"&gt;10&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;30&lt;/span&gt;]) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# b.shape: (3,)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;A &lt;span style="color:#f92672"&gt;+&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt; &lt;br&gt;
+e.g. in here it streches (reuse, not duplicate) [10, 20, 30] internally&lt;br&gt; &lt;br&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Rule 1&lt;/strong&gt;&lt;/em&gt;: Dimension sizes must be equal, one of them is &amp;ldquo;1&amp;rdquo; or one of them does not exist.
+&lt;br&gt;&lt;br&gt;
+&lt;em&gt;&lt;strong&gt;Rule 2&lt;/strong&gt;&lt;/em&gt;: For streching the smaller vector, bring them to the right (right-aligned) &lt;br&gt;&lt;br&gt;
+e.g. [27,27,27] + [27,27] &lt;br&gt;
+[27,27] -&amp;gt; [ ,27,27] -&amp;gt; [1,27,27] -&amp;gt; [27,27,27] &lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 4: Makemore, Part 1</title><link>https://datahatchery.com/posts/epoch4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch4/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery, and here is Epoch 4, Makemore Part 1.&lt;br&gt;&lt;br&gt; Makemore is a character-level language model, where each character is a token.
 The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
 &lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Step 1: Setup&lt;/strong&gt;:
@@ -12,11 +67,11 @@ Setup the virtual environment, and run the jupyter notebook &lt;br&gt;&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;jupyter notebook
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br&gt;
 &lt;p&gt;And make a new notebook: &lt;em&gt;makemore&lt;/em&gt;
-&lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 3: Micrograd, Part 3</title><link>https://auroramonet.github.io/memo/posts/epoch3/</link><pubDate>Tue, 30 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch3/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, I&amp;rsquo;m Mon, This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons&lt;/p&gt;
+&lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 3: Micrograd, Part 3</title><link>https://datahatchery.com/posts/epoch3/</link><pubDate>Tue, 30 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch3/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi, this is Data Hatchery. This is Epoch 3, Micrograd Part 3. In the previous epoch, we learnt how to create a neuron manually and made an introduction to tensors and PyTorch. Now we are going to learn how to make a simple neural network (nn) with layers of neurons.&lt;/p&gt;
 &lt;h2 id="lets-train-manually-with-a-neuron"&gt;Let&amp;rsquo;s train manually with a neuron!&lt;/h2&gt;
-&lt;p&gt;Let me go through a neuron first, an abstract about its mechanism with a practical example:&lt;/p&gt;</description></item><item><title>Epoch 2: Micrograd, Part 2</title><link>https://auroramonet.github.io/memo/posts/epoch2/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch2/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi! I&amp;rsquo;m Mon, this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the &lt;strong&gt;addition&lt;/strong&gt; and &lt;strong&gt;multiplication&lt;/strong&gt; and build a tiny engine that can calculate &lt;strong&gt;local derivatives&lt;/strong&gt; and &lt;strong&gt;global gradients&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Let me go through a neuron first, an abstract about its mechanism with a practical example:&lt;/p&gt;</description></item><item><title>Epoch 2: Micrograd, Part 2</title><link>https://datahatchery.com/posts/epoch2/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch2/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi! This is Data Hatchery. This is Epoch 2, Micrograd, Part 2. In the previous epoch, we learnt how to implement &lt;strong&gt;addition&lt;/strong&gt; and &lt;strong&gt;multiplication&lt;/strong&gt; and build a tiny engine that can calculate &lt;strong&gt;local derivatives&lt;/strong&gt; and &lt;strong&gt;global gradients&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Before jumping to Neural Network (nn), we should implement:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;subtraction (errors, losses)&lt;/strong&gt;&lt;/li&gt;
@@ -32,12 +87,13 @@ $$&lt;/p&gt;
 &lt;p&gt;rewrite:
 $$
 c = a + (-b)
-$$&lt;/p&gt;</description></item><item><title>Epoch1: Micrograd, Part 1</title><link>https://auroramonet.github.io/memo/posts/epoch1/</link><pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate><guid>https://auroramonet.github.io/memo/posts/epoch1/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi! I&amp;rsquo;m Mon. I&amp;rsquo;ve decided to study AI, ML&amp;hellip; almost every day with doing practical projects.&lt;/p&gt;
-&lt;p&gt;I write about them here.&lt;/p&gt;
+$$&lt;/p&gt;</description></item><item><title>Epoch1: Micrograd, Part 1</title><link>https://datahatchery.com/posts/epoch1/</link><pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch1/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Hi! This is Data Hatchery. We study AI and ML through practical projects.&lt;/p&gt;
+&lt;p&gt;We write about them here.&lt;/p&gt;
 &lt;p&gt;This is Epoch 1: the very first step.&lt;/p&gt;
 &lt;h2 id="content-gradient"&gt;Content: Gradient&lt;/h2&gt;
 &lt;p&gt;Building a neural network; a tiny autograd engine (micrograd) — an automatic differentiation engine with backpropagation.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Derivative&lt;/strong&gt; (single input change → single output change): the rate of change.&lt;/p&gt;
 &lt;div class="math-container"&gt;
-&lt;p&gt;Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:&lt;/p&gt;
+&lt;p&gt;if $x=3$, then $f(x)=9$&lt;/p&gt;</description></item></channel></rss>

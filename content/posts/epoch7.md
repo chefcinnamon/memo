@@ -2,12 +2,14 @@
 title: "Epoch 7: Makemore, Part 4"
 date: 2026-01-10
 draft: false
+aliases:
+  - /memo/posts/epoch7/
 ---
 
 
 
 ## Intro {.no-counter}
-Hi, this is , in the previous epoch we learnt how to make the backward pass of the bigram and make a one layer neural net, which the result of the training would be approximately equal to "normalizing the counts" approach, then we began to build mlp and context of 3 chars to predict the 4th chars. We continue to build the mlp of Makemore in this epoch.
+Hi, this is Data Hatchery. In the previous epoch, we learnt how to make the backward pass of the bigram and build a one-layer neural net whose training result was approximately equal to the “normalizing the counts” approach. Then we began to build an MLP with a context of three characters to predict the fourth. We continue building the MLP of Makemore in this epoch.
 
 
 ## Content: MLP Part 3 {.no-counter}
@@ -275,7 +277,7 @@ Now the plot: <br>
 plt.plot(lrs,allloss)
 
 ```
-![epoch7-plot](https://.github.io/memo/img/epoch7-plot.png) <br><br>
+![epoch7-plot](https://datahatchery.com/img/epoch7-plot.png) <br><br>
 
 x: lrs, y: allloss<br>
 As you see the best learning rate is in the area of 0.1 and 0.2 <br>
@@ -417,7 +419,7 @@ plt.grid('minor')
 ```
 plotting parameters, shows valuable data such as: Inputs that are near each other have similar likelihood of occurrence, the closer they are, the more interchangeable they are.
 
-![epoch7-plot2](https://.github.io/memo/img/epoch7-plot2.png) <br>
+![epoch7-plot2](https://datahatchery.com/img/epoch7-plot2.png) <br>
 
 ## Sampling {.no-counter}
 After we trained our model, let's pick some names as samples: <br>
@@ -454,4 +456,3 @@ for _ in range(20):
 
 ### Google Colab Notebook
 [Google Colab: Makemore Part 4](https://colab.research.google.com/drive/1YIfmkftLrz6MPTOO9Vwqrop2Q5llHIGK?usp=sharing#scrollTo=TQUMmgRrdRIA)
-

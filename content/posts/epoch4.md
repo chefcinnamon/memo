@@ -2,12 +2,14 @@
 title: "Epoch 4: Makemore, Part 1"
 date: 2026-01-01
 draft: false
+aliases:
+  - /memo/posts/epoch4/
 ---
 
 
 
 ## Intro
-Hi, this is , and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
+Hi, this is Data Hatchery, and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
 The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
 <br><br>
 
@@ -238,7 +240,7 @@ $$
 ***line 9*** note: x: j , y: i , it finds the cell in the tensor, then it prints the ij, and with **N[i,j].item()** it prints the value of the tensor 
 
 <br><br>
-![epoch4-bigram_heatmap](https://.github.io/memo/img/epoch4-bigram_heatmap.png)
+![epoch4-bigram_heatmap](https://datahatchery.com/img/epoch4-bigram_heatmap.png)
 
 
 ## Content: Bigram Part 3: Sampling, probability distribution{.no-counter}
@@ -367,4 +369,3 @@ It generates a new ix everytime (sample of row), it append the character, then i
 
 ### The spelled-out intro to language modeling: building makemore
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-

@@ -2,18 +2,20 @@
 title: "Epoch 8: Makemore, Part 5"
 date: 2026-01-11
 draft: false
+aliases:
+  - /memo/posts/epoch8/
 ---
 
 
 
 ## Intro {.no-counter}
-Hi, this is , in the previous epoch we learnt how to make mlp of makemore. In this epoch we learn more about Activations, gradients and BatchNorm.
+Hi, this is Data Hatchery. In the previous epoch, we learnt how to make an MLP for Makemore. In this epoch, we learn more about activations, gradients, and BatchNorm.
 
 ## Content: MLP Part 4 {.no-counter}
 Let's make our MLP again
 
 1. dictionary: <br>
-![epoch8-dictionary](https://.github.io/memo/img/epoch8-dictionary.png)
+![epoch8-dictionary](https://datahatchery.com/img/epoch8-dictionary.png)
 
 ```python-copy
 #dictionary 
@@ -30,7 +32,7 @@ print(vocab_size)
 <br>
 2. dataset: <br>
 
-![epoch8-dataset](https://.github.io/memo/img/epoch8-dataset.png)
+![epoch8-dataset](https://datahatchery.com/img/epoch8-dataset.png)
 
 ```python-copy
 # build the dataset
@@ -65,7 +67,7 @@ Xte,  Yte  = build_dataset(words[n2:])     # 10%
 <br>
 3. init: <br>
 
-![epoch8-init](https://.github.io/memo/img/epoch8-init.png)
+![epoch8-init](https://datahatchery.com/img/epoch8-init.png)
 
 ```python-copy
 # MLP init
@@ -88,7 +90,7 @@ for p in parameters:
 <br>
 4. autograd: <br>
 
-![epoch8-autograd](https://.github.io/memo/img/epoch8-autograd.png)
+![epoch8-autograd](https://datahatchery.com/img/epoch8-autograd.png)
 
 ```python-copy
 max_steps = 200000
@@ -132,11 +134,11 @@ Note 2: for loss plotting we use `log`, due to better shaping for steps, more un
 ```python
 plt.plot(lossi)
 ```
-![epoch8-plot-1](https://.github.io/memo/img/epoch8-plot-1.png)
+![epoch8-plot-1](https://datahatchery.com/img/epoch8-plot-1.png)
 <br>
 Now lets compare loss in training and dev set
 
-![epoch8-train-loss-1](https://.github.io/memo/img/epoch8-train-loss-1.png)
+![epoch8-train-loss-1](https://datahatchery.com/img/epoch8-train-loss-1.png)
 <br>
 
 ```python-copy
@@ -176,7 +178,7 @@ Note: Dev set is not trained in the model at all.
 
 Now let's get sample names from our model: <br>
 
-![epoch8-sample-1](https://.github.io/memo/img/epoch8-sample-1.png)
+![epoch8-sample-1](https://datahatchery.com/img/epoch8-sample-1.png)
 <br>
 
 ```python-copy
@@ -222,4 +224,3 @@ As you see here, we dont use Y, Y only is used for the training phase, for the s
 
 ### Google Colab Notebook
 [Google Colab: Makemore Part 5](https://colab.research.google.com/drive/1H5CSy-OnisagUgDUXhHwo1ng2pjKHYSN?usp=sharing#scrollTo=W4LMs4kwr6OW)
-

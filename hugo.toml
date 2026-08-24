@@ -1,4 +1,4 @@
-baseURL = 'https://.github.io/memo/'
+baseURL = 'https://datahatchery.com/'
 languageCode = 'en-US'
 title = 'Memo Box'
 
@@ -30,4 +30,3 @@ title = 'Memo Box'
   [module.hugoVersion]
     extended = false
     min = '0.93.0'
-

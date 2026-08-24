@@ -2,12 +2,14 @@
 title: "Epoch 6: Makemore, Part 3"
 date: 2026-01-07
 draft: false
+aliases:
+  - /memo/posts/epoch6/
 ---
 
 
 
 ## Intro
-Hi, this is , in the previous epoch we learnt how to create the forward pass, we need to create our backward pass too
+Hi, this is Data Hatchery. In the previous epoch, we learnt how to create the forward pass; now we need to create our backward pass too.
 
 ## Content: Bigram Part 8: Make forward pass for bigrams {.no-counter}
 
@@ -67,7 +69,7 @@ At this point we stored the gradients of W, check:
 ```python
 W.grad
 ```
-![epoch6-gradw](https://.github.io/memo/img/epoch6-gradw.png)
+![epoch6-gradw](https://datahatchery.com/img/epoch6-gradw.png)
 <br>
 
 ***Step 5: update Weights***
@@ -234,7 +236,7 @@ codes/makemore1.ipynb
 Now we are getting into making a multi layer neural net,<br><br> Karpathy introduced Bengio et al. 2003 (MLP language model) paper. <br> 
 
 
-![epoch6-mlp](https://.github.io/memo/img/epoch6-mlp.png)
+![epoch6-mlp](https://datahatchery.com/img/epoch6-mlp.png)
 
 <br>
 The paper shows the structure of building a language model, which has 18k words, <br>
@@ -577,4 +579,3 @@ h = torch.tanh(emb.view(-1, 6) @ W1 + b1)
 
 ### The spelled-out intro to language modeling: building makemore
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-

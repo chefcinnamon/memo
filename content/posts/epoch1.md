@@ -2,15 +2,17 @@
 title: "Epoch1: Micrograd, Part 1"
 date: 2025-12-25
 draft: false
+aliases:
+  - /memo/posts/epoch1/
 ---
 
 
 
 ## Intro
 
-Hi! this is . I've decided to study AI, ML... almost every day with doing practical projects.
+Hi! This is Data Hatchery. We study AI and ML through practical projects.
 
-I write about them here.
+We write about them here.
 
 This is Epoch 1: the very first step.
 
@@ -520,7 +522,7 @@ c.grad: 1.0
 
 Example 3:
 
-![epoch1-example](https://.github.io/memo/img/epoch1-example.png)
+![epoch1-example](https://datahatchery.com/img/epoch1-example.png)
 
 Next epoch will be about building a tiny neural network.
 

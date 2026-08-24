@@ -2,12 +2,14 @@
 title: "Epoch 5: Makemore, Part 2"
 date: 2026-01-04
 draft: false
+aliases:
+  - /memo/posts/epoch5/
 ---
 
 
 
 ## Intro
-Hi, this is , this is Epoch 5, Makemore p2
+Hi, this is Data Hatchery. This is Epoch 5, Makemore Part 2.
 
 ## Content: Bigram Part 4: Better efficiency {.no-counter}
 
@@ -89,7 +91,7 @@ correctly boradcasts the 1D vector (28, 1) to (28, 28), <br><br> now each row of
 
 then each value in our tensor (dist_all) is divided by the corresponding dist_all.sum(1)<br><br> 
 
-![epoch5-keepdim](https://.github.io/memo/img/epoch5-keepdim.png)
+![epoch5-keepdim](https://datahatchery.com/img/epoch5-keepdim.png)
 
 
 
@@ -156,7 +158,7 @@ Let's do neg log:  <br>
   $-\log(\text{prob})$ from 0 to 1
 </p>
 
-![epoch5-log](https://.github.io/memo/img/epoch5-log.png)
+![epoch5-log](https://datahatchery.com/img/epoch5-log.png)
 
 <br>
 This is aligned well with the requirements: <br>
@@ -329,12 +331,12 @@ xenc.shape
 xenc
 ```
 
-![epoch5-onehot](https://.github.io/memo/img/epoch5-onehot.png)
+![epoch5-onehot](https://datahatchery.com/img/epoch5-onehot.png)
 
 <br>
 plt.imshow(xenc)
 
-![epoch5-onehot-plt](https://.github.io/memo/img/epoch5-onehot-plt.png)
+![epoch5-onehot-plt](https://datahatchery.com/img/epoch5-onehot-plt.png)
 <br>
 
 
@@ -396,7 +398,7 @@ neurons
 
 ```
 
-![epoch5-neurons](https://.github.io/memo/img/epoch5-neurons.png)
+![epoch5-neurons](https://datahatchery.com/img/epoch5-neurons.png)
 
 > This[5,28] vector shows firing rate of all inputs in each neuron <br>
 
@@ -423,14 +425,14 @@ As you see in the image, still the outputs are not proper for our upcoming nn, (
 This is where we use ***exponent*** simply because it converts any real number into a positive number
 <br><br>
 
-![epoch5-exp-x](https://.github.io/memo/img/epoch5-exp-x.png)
+![epoch5-exp-x](https://datahatchery.com/img/epoch5-exp-x.png)
 
 <br>
 
 ```python
 (xenc @ W).exp()
 ```
-![epoch5-exp](https://.github.io/memo/img/epoch5-exp.png)
+![epoch5-exp](https://datahatchery.com/img/epoch5-exp.png)
 
 <br>
 
@@ -495,7 +497,7 @@ print("average neg log, also known as loss=")
 print(allneglogs.mean().item())
    ```
 
-![epoch5-neglog](https://.github.io/memo/img/epoch5-neglog.png)
+![epoch5-neglog](https://datahatchery.com/img/epoch5-neglog.png)
 
 This only calculated the loss for one word. <br>
 Later on we can fine tune the Ws by gradient optimization, simiar to what we did in micrograd.
@@ -506,4 +508,3 @@ Later on we can fine tune the Ws by gradient optimization, simiar to what we did
 
 ### The spelled-out intro to language modeling: building makemore
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-

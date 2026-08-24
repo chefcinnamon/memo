@@ -38,7 +38,7 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "https://.github.io/memo/" \
+            --baseURL "https://datahatchery.com/" \
             --destination build
 
       - name: Upload artifact

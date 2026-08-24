@@ -2,13 +2,15 @@
 title: "Epoch 3: Micrograd, Part 3"
 date: 2025-12-30
 draft: false
+aliases:
+  - /memo/posts/epoch3/
 ---
 
 
 
 ## Intro
 
-Hi, this is , This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons 
+Hi, this is Data Hatchery. This is Epoch 3, Micrograd Part 3. In the previous epoch, we learnt how to create a neuron manually and made an introduction to tensors and PyTorch. Now we are going to learn how to make a simple neural network (nn) with layers of neurons.
 
 ## Let's train manually with a neuron!
 
@@ -70,7 +72,7 @@ To compute the gradients of **Loss(L)** with respect to the parameters we need t
 
 **3.1: Gradient L w.r.t y_hat**
 
-*Each operation calrify what formula to use for calculating local derivatives, refer to [Epoch 1](https://.github.io/memo/posts/epoch1/)*
+*Each operation calrify what formula to use for calculating local derivatives, refer to [Epoch 1](https://datahatchery.com/posts/epoch1/)*
 
 ∂L/∂y_hat = 2 * (y_hat - y_true) <br>
 ∂L/∂y_hat = -0.855798
@@ -423,7 +425,7 @@ draw_dot(loss) #24
 <br><br>
 *Line 7*: backward calculates all the gradients, <br><br>
 
-> Note: We could do backward, because loss is a Value object refer to [Epoch 1](https://.github.io/memo/posts/epoch1/), that from **forward pass**, it stored ._prev and .data, <br>
+> Note: We could do backward, because loss is a Value object refer to [Epoch 1](https://datahatchery.com/posts/epoch1/), that from **forward pass**, it stored ._prev and .data, <br>
 and from **backward pass** it stores .grad 
 <br><br>
 
@@ -450,7 +452,7 @@ $$
 *Line 24*:
 generate the latest graph
 <br>
-![epoch3-garph-micrograd.svg](https://.github.io/memo/img/epoch3-garph-micrograd.svg)
+![epoch3-garph-micrograd.svg](https://datahatchery.com/img/epoch3-garph-micrograd.svg)
 
 <br><br>
 You can access the code here:

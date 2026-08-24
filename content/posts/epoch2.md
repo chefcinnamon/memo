@@ -2,13 +2,15 @@
 title: "Epoch 2: Micrograd, Part 2"
 date: 2025-12-27
 draft: false
+aliases:
+  - /memo/posts/epoch2/
 ---
 
 
 
 ## Intro
 
-Hi! this is , this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
+Hi! This is Data Hatchery. This is Epoch 2, Micrograd, Part 2. In the previous epoch, we learnt how to implement **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
 
 Before jumping to Neural Network (nn), we should implement:
 
@@ -275,7 +277,7 @@ draw_dot(d)
 #d.grad: 1.0
 ```
 
-![epoch2-graph](https://.github.io/memo/img/epoch2-graph.png)
+![epoch2-graph](https://datahatchery.com/img/epoch2-graph.png)
 
 ## Content: Neuron
 
@@ -362,7 +364,7 @@ draw_dot(out)
 # tanh(x1*w1 + x2*w2 + b).grad: 1.0000
 ```
 
-![epoch2-graph-tanh](https://.github.io/memo/img/epoch2-graph-tanh.png)
+![epoch2-graph-tanh](https://datahatchery.com/img/epoch2-graph-tanh.png)
 
 ## Content: PyTorch
 
@@ -517,7 +519,7 @@ $b$ → bias
 
 $\phi$ → activation function (tanh, ReLU, etc.)
 
-![epoch2-nn](https://.github.io/memo/img/epoch2-nn.jpg)
+![epoch2-nn](https://datahatchery.com/img/epoch2-nn.jpg)
 
 in each layer:
 
