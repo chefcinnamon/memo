@@ -3,7 +3,7 @@
 &lt;p&gt;I try to build tidy, minimal mvp rather than auto scalable kubernetes infra at the start.&lt;/p&gt;
 &lt;p&gt;I try to fix or improve a very specific, narrow painpoint rather than all in one, broad use cases.&lt;/p&gt;
 &lt;p&gt;I try to be the best, in the list of &amp;ldquo;that specific feature&amp;rdquo; providers, not one of them, or one of the good ones.&lt;/p&gt;</description></item><item><title>Epoch 8: Makemore, Part 5</title><link>https://datahatchery.com/posts/epoch8/</link><pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch8/</guid><description>&lt;h2 class="no-counter" id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to make an MLP for Makemore. In this epoch, we learn more about activations, gradients, and BatchNorm.&lt;/p&gt;
+&lt;p&gt;Hi, this is , in the previous epoch we learnt how to make mlp of makemore. In this epoch we learn more about Activations, gradients and BatchNorm.&lt;/p&gt;
 &lt;h2 class="no-counter" id="content-mlp-part-4"&gt;Content: MLP Part 4&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s make our MLP again&lt;/p&gt;
 &lt;ol&gt;
@@ -23,10 +23,10 @@ print(vocab_size)
 &lt;/code&gt;&lt;/pre&gt;&lt;br&gt;
 2. dataset: &lt;br&gt;
 &lt;p&gt;&lt;img src="https://datahatchery.com/img/epoch8-dataset.png" alt="epoch8-dataset"&gt;&lt;/p&gt;</description></item><item><title>Epoch 7: Makemore, Part 4</title><link>https://datahatchery.com/posts/epoch7/</link><pubDate>Sat, 10 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch7/</guid><description>&lt;h2 class="no-counter" id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to make the backward pass of the bigram and build a one-layer neural net whose training result was approximately equal to the “normalizing the counts” approach. Then we began to build an MLP with a context of three characters to predict the fourth. We continue building the MLP of Makemore in this epoch.&lt;/p&gt;
+&lt;p&gt;Hi, this is , in the previous epoch we learnt how to make the backward pass of the bigram and make a one layer neural net, which the result of the training would be approximately equal to &amp;ldquo;normalizing the counts&amp;rdquo; approach, then we began to build mlp and context of 3 chars to predict the 4th chars. We continue to build the mlp of Makemore in this epoch.&lt;/p&gt;
 &lt;h2 class="no-counter" id="content-mlp-part-3"&gt;Content: MLP Part 3&lt;/h2&gt;
 &lt;p&gt;We have already created the second layer of the mlp with tanh:&lt;/p&gt;</description></item><item><title>Epoch 6: Makemore, Part 3</title><link>https://datahatchery.com/posts/epoch6/</link><pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch6/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery. In the previous epoch, we learnt how to create the forward pass; now we need to create our backward pass too.&lt;/p&gt;
+&lt;p&gt;Hi, this is , in the previous epoch we learnt how to create the forward pass, we need to create our backward pass too&lt;/p&gt;
 &lt;h2 class="no-counter" id="content-bigram-part-8-make-forward-pass-for-bigrams"&gt;Content: Bigram Part 8: Make forward pass for bigrams&lt;/h2&gt;
 &lt;p&gt;At first lets learn some definitions: &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;in &lt;strong&gt;Classification&lt;/strong&gt; we predict a label such as cat vs dog. &lt;br&gt;&lt;br&gt;
@@ -35,7 +35,7 @@ in &lt;strong&gt;Regression&lt;/strong&gt; we predict a number or value.&lt;/p&g
 In each of these we use different approaches to calculate the loss&lt;br&gt;
 in our micrograd we used mean squared error, and here we use neg log probs &lt;br&gt;&lt;br&gt;
 &lt;p&gt;From the previous epoch the forward pass&lt;/p&gt;</description></item><item><title>Epoch 5: Makemore, Part 2</title><link>https://datahatchery.com/posts/epoch5/</link><pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch5/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery. This is Epoch 5, Makemore Part 2.&lt;/p&gt;
+&lt;p&gt;Hi, this is , this is Epoch 5, Makemore p2&lt;/p&gt;
 &lt;h2 class="no-counter" id="content-bigram-part-4-better-efficiency"&gt;Content: Bigram Part 4: Better efficiency&lt;/h2&gt;
 &lt;p&gt;Just a concept to know, before we begin:&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Broadcasting&lt;/strong&gt;: &lt;br&gt;
@@ -54,7 +54,7 @@ e.g. in here it streches (reuse, not duplicate) [10, 20, 30] internally&lt;br&gt
 &lt;em&gt;&lt;strong&gt;Rule 2&lt;/strong&gt;&lt;/em&gt;: For streching the smaller vector, bring them to the right (right-aligned) &lt;br&gt;&lt;br&gt;
 e.g. [27,27,27] + [27,27] &lt;br&gt;
 [27,27] -&amp;gt; [ ,27,27] -&amp;gt; [1,27,27] -&amp;gt; [27,27,27] &lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 4: Makemore, Part 1</title><link>https://datahatchery.com/posts/epoch4/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch4/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery, and here is Epoch 4, Makemore Part 1.&lt;br&gt;&lt;br&gt; Makemore is a character-level language model, where each character is a token.
+&lt;p&gt;Hi, this is , and here is Epoch 4, Makemore Part 1.&lt;br&gt;&lt;br&gt; Makemore is a character-level language model, where each character is a token.
 The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
 &lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Step 1: Setup&lt;/strong&gt;:
@@ -68,10 +68,10 @@ Setup the virtual environment, and run the jupyter notebook &lt;br&gt;&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br&gt;
 &lt;p&gt;And make a new notebook: &lt;em&gt;makemore&lt;/em&gt;
 &lt;br&gt;&lt;/p&gt;</description></item><item><title>Epoch 3: Micrograd, Part 3</title><link>https://datahatchery.com/posts/epoch3/</link><pubDate>Tue, 30 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch3/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi, this is Data Hatchery. This is Epoch 3, Micrograd Part 3. In the previous epoch, we learnt how to create a neuron manually and made an introduction to tensors and PyTorch. Now we are going to learn how to make a simple neural network (nn) with layers of neurons.&lt;/p&gt;
+&lt;p&gt;Hi, this is , This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons&lt;/p&gt;
 &lt;h2 id="lets-train-manually-with-a-neuron"&gt;Let&amp;rsquo;s train manually with a neuron!&lt;/h2&gt;
 &lt;p&gt;Let me go through a neuron first, an abstract about its mechanism with a practical example:&lt;/p&gt;</description></item><item><title>Epoch 2: Micrograd, Part 2</title><link>https://datahatchery.com/posts/epoch2/</link><pubDate>Sat, 27 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch2/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi! This is Data Hatchery. This is Epoch 2, Micrograd, Part 2. In the previous epoch, we learnt how to implement &lt;strong&gt;addition&lt;/strong&gt; and &lt;strong&gt;multiplication&lt;/strong&gt; and build a tiny engine that can calculate &lt;strong&gt;local derivatives&lt;/strong&gt; and &lt;strong&gt;global gradients&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Hi! this is , this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the &lt;strong&gt;addition&lt;/strong&gt; and &lt;strong&gt;multiplication&lt;/strong&gt; and build a tiny engine that can calculate &lt;strong&gt;local derivatives&lt;/strong&gt; and &lt;strong&gt;global gradients&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Before jumping to Neural Network (nn), we should implement:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;subtraction (errors, losses)&lt;/strong&gt;&lt;/li&gt;
@@ -88,12 +88,11 @@ $$&lt;/p&gt;
 $$
 c = a + (-b)
 $$&lt;/p&gt;</description></item><item><title>Epoch1: Micrograd, Part 1</title><link>https://datahatchery.com/posts/epoch1/</link><pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate><guid>https://datahatchery.com/posts/epoch1/</guid><description>&lt;h2 id="intro"&gt;Intro&lt;/h2&gt;
-&lt;p&gt;Hi! This is Data Hatchery. We study AI and ML through practical projects.&lt;/p&gt;
-&lt;p&gt;We write about them here.&lt;/p&gt;
+&lt;p&gt;Hi! this is . I&amp;rsquo;ve decided to study AI, ML&amp;hellip; almost every day with doing practical projects.&lt;/p&gt;
+&lt;p&gt;I write about them here.&lt;/p&gt;
 &lt;p&gt;This is Epoch 1: the very first step.&lt;/p&gt;
 &lt;h2 id="content-gradient"&gt;Content: Gradient&lt;/h2&gt;
 &lt;p&gt;Building a neural network; a tiny autograd engine (micrograd) — an automatic differentiation engine with backpropagation.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Derivative&lt;/strong&gt; (single input change → single output change): the rate of change.&lt;/p&gt;
 &lt;div class="math-container"&gt;
-&lt;p&gt;Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:&lt;/p&gt;
-&lt;p&gt;if $x=3$, then $f(x)=9$&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Example: if $f(x)=x^2$, and $x$ changes by a fixed amount, say 1:&lt;/p&gt;</description></item></channel></rss>

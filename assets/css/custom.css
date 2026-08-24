@@ -14,15 +14,35 @@
     min-width: 0;
   }
 
-  iframe,
-  video {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border: 0;
-  }
+}
+
+/* Keep post links and generated image links inside the content column. */
+main a {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+main a[data-glightbox] {
+  display: block;
+  width: 100%;
+  margin-inline: 0;
+  border-bottom: 0;
+}
+
+main a[data-glightbox] img {
+  width: auto;
+  max-width: 100%;
+}
+
+/* Keep embedded media fluid on every screen size. */
+main iframe,
+main video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
 }
 
 /* Remove max-width restriction on code blocks for mobile */
@@ -186,7 +206,6 @@ main img:hover {
 
 /* Style for images wrapped in lightbox links */
 main a[data-glightbox] {
-  display: inline-block;
   text-decoration: none;
 }
 

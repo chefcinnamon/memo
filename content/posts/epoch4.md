@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro
-Hi, this is Data Hatchery, and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
+Hi, this is , and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
 The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
 <br><br>
 
@@ -368,4 +368,4 @@ It generates a new ix everytime (sample of row), it append the character, then i
 [GitHub: karpathy/makemore](https://github.com/karpathy/makemore)
 
 ### The spelled-out intro to language modeling: building makemore
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

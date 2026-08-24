@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro {.no-counter}
-Hi, this is Data Hatchery. In the previous epoch, we learnt how to make an MLP for Makemore. In this epoch, we learn more about activations, gradients, and BatchNorm.
+Hi, this is , in the previous epoch we learnt how to make mlp of makemore. In this epoch we learn more about Activations, gradients and BatchNorm.
 
 ## Content: MLP Part 4 {.no-counter}
 Let's make our MLP again
@@ -220,7 +220,7 @@ As you see here, we dont use Y, Y only is used for the training phase, for the s
 [GitHub: karpathy/makemore](https://github.com/karpathy/makemore)
 
 ### The spelled-out intro to language modeling: building makemore
-<iframe width="560" height="315" src="https://www.youtube.com/embed/P6sfmUTpUmc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/P6sfmUTpUmc" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Google Colab Notebook
 [Google Colab: Makemore Part 5](https://colab.research.google.com/drive/1H5CSy-OnisagUgDUXhHwo1ng2pjKHYSN?usp=sharing#scrollTo=W4LMs4kwr6OW)

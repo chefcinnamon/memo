@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro
-Hi, this is Data Hatchery. This is Epoch 5, Makemore Part 2.
+Hi, this is , this is Epoch 5, Makemore p2
 
 ## Content: Bigram Part 4: Better efficiency {.no-counter}
 
@@ -507,4 +507,4 @@ Later on we can fine tune the Ws by gradient optimization, simiar to what we did
 [GitHub: karpathy/makemore](https://github.com/karpathy/makemore)
 
 ### The spelled-out intro to language modeling: building makemore
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/PaCmpygFfXo" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

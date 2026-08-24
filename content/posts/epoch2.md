@@ -10,7 +10,7 @@ aliases:
 
 ## Intro
 
-Hi! This is Data Hatchery. This is Epoch 2, Micrograd, Part 2. In the previous epoch, we learnt how to implement **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
+Hi! this is , this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
 
 Before jumping to Neural Network (nn), we should implement:
 
@@ -447,7 +447,7 @@ print("b.grad:", b.grad.item())
 
 ## Content: Neuron in PyTorch
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/joA6fEAbAQc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/joA6fEAbAQc" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 Watch this video first, it shows how a **neural network** works,
 
@@ -551,4 +551,4 @@ Let's make a neuron in PyTorch,
 A tiny scalar-valued autograd engine and a neural net library on top of it with PyTorch-like API, created by Andrej Karpathy.
 
 ### The spelled-out intro to neural networks and backpropagation: building micrograd
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -10,9 +10,9 @@ aliases:
 
 ## Intro
 
-Hi! This is Data Hatchery. We study AI and ML through practical projects.
+Hi! this is . I've decided to study AI, ML... almost every day with doing practical projects.
 
-We write about them here.
+I write about them here.
 
 This is Epoch 1: the very first step.
 
@@ -534,4 +534,4 @@ Next epoch will be about building a tiny neural network.
 A tiny scalar-valued autograd engine and a neural net library on top of it with PyTorch-like API, created by Andrej Karpathy.
 
 ### The spelled-out intro to neural networks and backpropagation: building micrograd
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

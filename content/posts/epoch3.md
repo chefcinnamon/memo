@@ -10,7 +10,7 @@ aliases:
 
 ## Intro
 
-Hi, this is Data Hatchery. This is Epoch 3, Micrograd Part 3. In the previous epoch, we learnt how to create a neuron manually and made an introduction to tensors and PyTorch. Now we are going to learn how to make a simple neural network (nn) with layers of neurons.
+Hi, this is , This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons
 
 ## Let's train manually with a neuron!
 
@@ -466,4 +466,4 @@ codes/micrograd_3.ipynb
 A tiny scalar-valued autograd engine and a neural net library on top of it with PyTorch-like API, created by Andrej Karpathy.
 
 ### The spelled-out intro to neural networks and backpropagation: building micrograd
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/VMj-3S1tku0" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
