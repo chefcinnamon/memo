@@ -48,3 +48,5 @@ tags
 # Persistent undo
 [._]*.un~
 
+### Local archives
+archive/
