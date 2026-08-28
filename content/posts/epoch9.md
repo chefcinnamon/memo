@@ -1,5 +1,5 @@
 ---
-title: "Epoch 9: Deep Learning with fastai"
+title: "Epoch 9: Deep Learning with fastai Part 1"
 date: 2026-08-27
 draft: false
 aliases:
@@ -266,14 +266,33 @@ To inspect a few predictions:
 learn.show_results(max_n=6, figsize=(7, 8))
 ```
 
+- `max_n=6` shows up to six examples.
+- `figsize=(7, 8)` sets the figure size to 7 × 8 inches.
+
+
 ![Segmentation targets and predictions](/img/epoch9-segmentation.png)
 
 Example training output:
 
-```text
-epoch  train_loss  valid_loss
-19     0.438452    0.704024
-```
-
-- `max_n=6` shows up to six examples.
-- `figsize=(7, 8)` sets the figure size to 7 × 8 inches.
+| epoch | train_loss | valid_loss | time |
+| ----- | ---------- | ---------- | ---- |
+| 0     | 1.658884   | 1.644030   | 00:01 |
+| 1     | 1.479218   | 1.343398   | 00:01 |
+| 2     | 1.348353   | 1.284355   | 00:01 |
+| 3     | 1.241375   | 1.121249   | 00:01 |
+| 4     | 1.159236   | 1.188174   | 00:01 |
+| 5     | 1.095831   | 1.034621   | 00:01 |
+| 6     | 1.016362   | 0.873740   | 00:01 |
+| 7     | 0.932146   | 0.796478   | 00:01 |
+| 8     | 0.856378   | 0.841596   | 00:01 |
+| 9     | 0.795792   | 0.775887   | 00:01 |
+| 10    | 0.739415   | 0.744660   | 00:01 |
+| 11    | 0.688554   | 0.730134   | 00:01 |
+| 12    | 0.643139   | 0.728994   | 00:01 |
+| 13    | 0.603084   | 0.738516   | 00:01 |
+| 14    | 0.569019   | 0.709449   | 00:01 |
+| 15    | 0.535957   | 0.691849   | 00:01 |
+| 16    | 0.506096   | 0.701629   | 00:01 |
+| 17    | 0.479810   | 0.709441   | 00:01 |
+| 18    | 0.457027   | 0.705072   | 00:01 |
+| 19    | 0.438452   | 0.704024   | 00:01 |
