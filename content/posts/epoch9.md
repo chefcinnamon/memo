@@ -1,7 +1,7 @@
 ---
 title: "Epoch 9: Deep Learning with fastai"
 date: 2026-08-27
-draft: true
+draft: false
 aliases:
   - /memo/posts/epoch9/
 ---
