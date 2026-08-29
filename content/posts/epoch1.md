@@ -10,7 +10,7 @@ aliases:
 
 ## Intro
 
-Hi! this is . I've decided to study AI, ML... almost every day with doing practical projects.
+Hi! I've decided to study AI, ML... almost every day with doing practical projects.
 
 I write about them here.
 

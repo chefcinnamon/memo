@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro
-Hi, this is , and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
+Hi, and here is Epoch 4, Makemore Part 1.<br><br> Makemore is a character-level language model, where each character is a token.
 The model is trained on a dataset of names and learns to predict the next token (character), allowing it to generate new names that sound realistic.
 <br><br>
 

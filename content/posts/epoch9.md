@@ -18,7 +18,7 @@ I am taking notes as I go and trying to keep them as minimal as possible.
 
 ## Content: First steps with fastai {.no-counter}
 
-### Jupyter notebooks
+## Jupyter notebooks {.no-counter}
 
 In theory, a neural network with enough neurons can approximate a wide range of functions. In practice, a useful model also needs the right architecture, data, training method, and amount of computation.
 
@@ -31,7 +31,7 @@ The common cell types are:
 
 Google Colab and Kaggle Notebooks are hosted alternatives. In this experiment, Kaggle was useful because its accelerator option provided two NVIDIA T4 GPUs.
 
-### Train our first model: a cat-versus-dog classifier
+## Train our first model: a cat-versus-dog classifier {.no-counter}
 
 For this setup, an NVIDIA GPU is convenient because PyTorch and many of the surrounding libraries use CUDA. A GPU can perform many numerical operations in parallel, which makes it useful for neural-network training.
 
@@ -72,7 +72,7 @@ At a high level, the model receives an image, transforms it through several laye
 
 ![Neural-network training overview](/img/train.png)
 
-### Test the model with an uploaded image
+## Test the model with an uploaded image {.no-counter}
 
 Jupyter widgets let us upload an image from the notebook. Running the last line displays an upload button:
 
@@ -92,7 +92,7 @@ Is this a cat?: True
 Probability it's a cat: 1.000000
 ```
 
-### A few important ideas
+## A few important ideas {.no-counter}
 
 The **Universal Approximation Theorem** says:
 
@@ -109,7 +109,7 @@ We explored gradient descent in the previous epochs, so I recommend reading thos
 
 A separate issue is a data feedback loop: if a model's predictions influence the data collected for future training, the model can reinforce the same bias over time.
 
-### Load and label the data
+## Load and label the data {.no-counter}
 
 The first two lines of the training cell set up the dataset:
 
@@ -137,12 +137,12 @@ The dataset's filenames use a convention that lets us distinguish cats from dogs
 
 The validation set is important because it tests how well the model works on images that were not used to update its weights.
 
-### Classification and regression
+## Classification and regression {.no-counter}
 
 - **Classification** predicts a category, such as `cat` or `dog`.
 - **Regression** predicts a numerical value, such as a price or temperature.
 
-### Overfitting
+## Overfitting {.no-counter}
 
 **Overfitting** happens when a model memorizes the training examples instead of learning patterns that generalize to new data.
 
@@ -150,7 +150,7 @@ The validation set is important because it tests how well the model works on ima
 
 If the validation performance starts getting worse while the training performance keeps improving, the model may be overfitting.
 
-### ResNet and metrics
+## ResNet and metrics {.no-counter}
 
 **ResNet-34** is a 34-layer convolutional neural-network architecture used for image recognition. ResNet means *Residual Network*.
 
@@ -161,7 +161,7 @@ If the validation performance starts getting worse while the training performanc
 
 A **metric** is a function that measures the quality of a model's predictions, usually on the validation set. `error_rate`, for example, measures the proportion of incorrect predictions.
 
-### Pretrained models and transfer learning
+## Pretrained models and transfer learning {.no-counter}
 
 A model whose weights were learned from an earlier dataset is called a **pretrained model**.
 

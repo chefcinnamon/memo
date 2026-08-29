@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro
-Hi, this is , in the previous epoch we learnt how to create the forward pass, we need to create our backward pass too
+Hi, in the previous epoch we learnt how to create the forward pass, we need to create our backward pass too
 
 ## Content: Bigram Part 8: Make forward pass for bigrams {.no-counter}
 
@@ -227,8 +227,7 @@ for i in range(5):
 > gsahrmaquan`<E>`<br>
 
 
-You can access the code here:
-codes/makemore1.ipynb
+The code is in the repository file `codes/makemore1.ipynb`.
 
 ---
 

@@ -10,7 +10,7 @@ aliases:
 
 ## Intro
 
-Hi, this is , This is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons
+Hi, this is Epoch 3, Micrograd Part 3, in the previous epoch we learnt how to create a neuron manually, and we made an introduction about Tensors and PyTorch, now we are going to learn how to make a simple neural network (nn) layers of neurons
 
 ## Let's train manually with a neuron!
 
@@ -455,8 +455,7 @@ generate the latest graph
 ![epoch3-garph-micrograd.svg](https://datahatchery.com/img/epoch3-garph-micrograd.svg)
 
 <br><br>
-You can access the code here:
-codes/micrograd_3.ipynb
+The code is in the repository file `codes/micrograd_3.ipynb`.
 
 ## Resources
 

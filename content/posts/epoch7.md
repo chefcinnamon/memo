@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro {.no-counter}
-Hi, this is , in the previous epoch we learnt how to make the backward pass of the bigram and make a one layer neural net, which the result of the training would be approximately equal to "normalizing the counts" approach, then we began to build mlp and context of 3 chars to predict the 4th chars. We continue to build the mlp of Makemore in this epoch.
+Hi, in the previous epoch we learnt how to make the backward pass of the bigram and make a one layer neural net, which the result of the training would be approximately equal to "normalizing the counts" approach, then we began to build mlp and context of 3 chars to predict the 4th chars. We continue to build the mlp of Makemore in this epoch.
 
 
 ## Content: MLP Part 3 {.no-counter}

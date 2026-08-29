@@ -10,7 +10,7 @@ aliases:
 
 ## Intro
 
-Hi! this is , this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
+Hi! this is Epoch 2, Micrograd, Part 2, in the previous epoch we learnt how to implement the **addition** and **multiplication** and build a tiny engine that can calculate **local derivatives** and **global gradients**.
 
 Before jumping to Neural Network (nn), we should implement:
 
@@ -374,8 +374,7 @@ Congrats! we built a neuron, by
 
 **2. Compute gradients manually with backward() using the chain rule.**
 
-You can access the code here:
-codes/micrograd_1.ipynb
+The code is in the repository file `codes/micrograd_1.ipynb`.
 
 Let's rewrite in PyTorch, a standard Python library for machine learning, which can create an autograd, by using **Tensors** (multi-dimensional array, similar to matrix)
 

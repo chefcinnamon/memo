@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro
-Hi, this is , this is Epoch 5, Makemore p2
+Hi, this is Epoch 5, Makemore p2
 
 ## Content: Bigram Part 4: Better efficiency {.no-counter}
 

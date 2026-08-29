@@ -9,7 +9,7 @@ aliases:
 
 
 ## Intro {.no-counter}
-Hi, this is , in the previous epoch we learnt how to make mlp of makemore. In this epoch we learn more about Activations, gradients and BatchNorm.
+Hi, in the previous epoch we learnt how to make mlp of makemore. In this epoch we learn more about Activations, gradients and BatchNorm.
 
 ## Content: MLP Part 4 {.no-counter}
 Let's make our MLP again
