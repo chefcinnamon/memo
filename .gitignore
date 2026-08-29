@@ -1,6 +1,7 @@
 ### Hugo
 # Generated files by hugo
 /public/
+/build/
 /resources/_gen/
 /assets/jsconfig.json
 hugo_stats.json
@@ -50,3 +51,6 @@ tags
 
 ### Local archives
 archive/
+
+### Operating system files
+.DS_Store
