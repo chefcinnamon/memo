@@ -1,6 +1,6 @@
 +++
 date = '2026-10-02T12:22:41-04:00'
-draft = true
+draft = false
 title = 'LP, Part 1'
 slug = 'lp1'
 +++
