@@ -1,0 +1,17 @@
+{{- $destination := .Destination -}}
+{{- $local := false -}}
+{{- range slice "https://datahatchery.com/" "http://datahatchery.com/" -}}
+  {{- if strings.HasPrefix $destination . -}}
+    {{- $destination = strings.TrimPrefix . $destination -}}
+    {{- $local = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if strings.HasPrefix $destination "/" -}}
+  {{- $destination = strings.TrimPrefix "/" $destination -}}
+  {{- $local = true -}}
+{{- end -}}
+{{- if $local -}}
+  {{- $destination = strings.TrimPrefix "blog/" $destination -}}
+  {{- $destination = $destination | relURL -}}
+{{- end -}}
+<img src="{{ $destination | safeURL }}"{{ with .PlainText }} alt="{{ . }}"{{ end }}{{ with .Title }} title="{{ . }}"{{ end }}>

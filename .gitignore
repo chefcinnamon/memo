@@ -2,7 +2,9 @@
 # Generated files by hugo
 /public/
 /build/
+/build-preview/
 /resources/_gen/
+/.wrangler/
 /assets/jsconfig.json
 hugo_stats.json
 

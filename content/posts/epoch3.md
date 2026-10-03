@@ -72,7 +72,7 @@ To compute the gradients of **Loss(L)** with respect to the parameters we need t
 
 **3.1: Gradient L w.r.t y_hat**
 
-*Each operation calrify what formula to use for calculating local derivatives, refer to [Epoch 1](https://datahatchery.com/posts/epoch1/)*
+*Each operation calrify what formula to use for calculating local derivatives, refer to [Epoch 1](https://datahatchery.com/blog/posts/epoch1/)*
 
 ∂L/∂y_hat = 2 * (y_hat - y_true) <br>
 ∂L/∂y_hat = -0.855798
@@ -425,7 +425,7 @@ draw_dot(loss) #24
 <br><br>
 *Line 7*: backward calculates all the gradients, <br><br>
 
-> Note: We could do backward, because loss is a Value object refer to [Epoch 1](https://datahatchery.com/posts/epoch1/), that from **forward pass**, it stored ._prev and .data, <br>
+> Note: We could do backward, because loss is a Value object refer to [Epoch 1](https://datahatchery.com/blog/posts/epoch1/), that from **forward pass**, it stored ._prev and .data, <br>
 and from **backward pass** it stores .grad 
 <br><br>
 
