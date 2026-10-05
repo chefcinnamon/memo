@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ .Content }}
 
-  {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
+  {{ range first 100 (where .Site.RegularPages "Section" "posts") }}
   <div class="post-item">
     <h3 class="no-counter"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
   </div>
