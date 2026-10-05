@@ -1,6 +1,6 @@
 +++
 date = '2026-10-05'
-draft = true
+draft = false
 title = 'Applied Data Science Part 1'
 slug = 'ds1'
 +++
