@@ -156,7 +156,7 @@ $$
 \boxed{\text{Overround} \approx 104.71\\% - 100\\% = 4.71\\%}
 $$
 
-Also known informally as **house edge**: earlier, we compared implied prob. with true prob. for a single set of odds; here, overround uses the sum of all implied prob. across the market. Strictly, overround and house edge are different measures: overround is the excess implied prob., while house edge is the expected profit per unit staked.
+Often called **house edge**, though the measures differ. Earlier, we used a single odd; here, overround uses the sum of all implied prob.
 
 ## Resources {.no-counter}
 
