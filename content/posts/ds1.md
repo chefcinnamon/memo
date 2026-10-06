@@ -124,39 +124,18 @@ round(bankroll[n + 1, ], 2)
 
 ## Overround (Total Vig or Vigorish) {.no-counter}
 
-Overround is the amount by which the sum of all implied prob. exceeds 100%.
-It represents the bookmaker’s built-in margin in the quoted odds.
+Overround is the sum of all implied prob. minus 100%.
 
 $$
-\boxed{\text{Overround} = \sum_i p_i - 100\\%}
+\boxed{\text{Overround} = \sum \text{Implied prob.} - 100\\%}
 $$
 
-Here, $p_i$ is the implied prob. of each outcome, expressed as a percentage.
-
-For instance, suppose both Over and Under have decimal odds of 1.91:
+For Over and Under both at odds of 1.91:
 
 $$
-\text{Over: } \frac{1}{1.91} \times 100\\% \approx 52.36\\%
+\left(\frac{1}{1.91} + \frac{1}{1.91} - 1\right) \times 100\\%
+\approx 4.71\\%
 $$
-
-$$
-\text{Under: } \frac{1}{1.91} \times 100\\% \approx 52.36\\%
-$$
-
-Adding the implied prob. **before rounding** gives:
-
-$$
-\left(\frac{1}{1.91} + \frac{1}{1.91}\right) \times 100\\%
-\approx 104.71\\%
-$$
-
-Therefore:
-
-$$
-\boxed{\text{Overround} \approx 104.71\\% - 100\\% = 4.71\\%}
-$$
-
-Often called **house edge**, though the measures differ. Earlier, we used a single odd; here, overround uses the sum of all implied prob.
 
 ## Resources {.no-counter}
 
