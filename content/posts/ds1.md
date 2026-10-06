@@ -130,11 +130,11 @@ $$
 \boxed{\text{Overround} = \sum \text{Implied prob.} - 100\\%}
 $$
 
-When there is more than 1 outcome in an event (for instance, flipping a coin: up odds 1.5×, impl. prob. 66.67%; down odds 1.5×, impl. prob. 66.67%), we can calculate the total overround of the system, also loosely known as **total house edge**, or the **diff between the total impl. prob. and total true prob. (100%)**.
+When there is more than 1 outcome in an event (for instance, flipping a coin: up odds 1.9×, impl. prob. 52.63%; down odds 1.9×, impl. prob. 52.63%), we can calculate the total overround of the system, also loosely known as **total house edge**, or the **diff between the total impl. prob. and total true prob. (100%)**.
 
 $$
-\left(\frac{1}{1.5} + \frac{1}{1.5} - 1\right) \times 100\\%
-\approx 33.33\\%
+\left(\frac{1}{1.9} + \frac{1}{1.9} - 1\right) \times 100\\%
+\approx 5.26\\%
 $$
 
 ## Resources {.no-counter}
