@@ -76,13 +76,13 @@ hence house is winning 2.63% on all trades theoretically.
 and your EV in case you bet <span>$1</span> in example 2 is:
 
 $$
-.50 \times 1.9 - 1 = \\\-$0.05
+.50 \times 1.9 - 1 = -\\$0.05
 $$
 
 same as <br>
 
 $$
-(0.5 \times 0.9) - (0.5 \times 1) = \\-$0.05
+(0.5 \times 0.9) - (0.5 \times 1) = -\\$0.05
 $$
 
 <br>
