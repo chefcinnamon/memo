@@ -321,7 +321,7 @@ $$
 r=\frac{\text{new token price}}{\text{initial token price}}
 $$
 
-For your ZIP example:
+For our ZIP example:
 
 $$
 r=\frac{16}{4}=4
@@ -427,14 +427,14 @@ You can read more here:
 
 Fast forward, Uniswap v4 (draft introduced in 2023 and went live in 2025), introduced 2 major updates: <br>
 
-1. **Hooks:** External contracts that add custom behavior at key points in a pool’s lifecycle, enabling features such as dynamic fees, creators fees, oracles, onchain limit orders and more! (Finally achieving the dream of ***money legos***, which were mainly discussed in DeFi summer 2020)
+1. **Hooks:** External contracts that add custom behavior at key points in a pool’s lifecycle, enabling features such as dynamic fees, creators fees, oracles, onchain limit orders and more! (Finally achieving the dream of ***money legos***, which were mainly heated up in DeFi summer 2020)
 
 2. **Gas optimization** with various techniques such as <br>
 A. a singleton **PoolManager** manages all pools, avoiding a separate contract deployment for each pool. <br>
-B. **Flash accounting** nets balances across operations and settles only the final amounts, reducing intermediate token transfers—especially in multi-hop swaps.
+B. **Flash accounting** nets balances across operations and settles only the final amounts, reducing intermediate token transfers especially in multi hop swaps.
 <br>
 
 C. **Transient storage** holds temporary accounting data for the transaction, reducing storage costs
 <br>
 
-D. **Native ETH support** avoids wrapping and unwrapping ETH where applicable
+D. **Native ETH support** avoids wrapping and unwrapping

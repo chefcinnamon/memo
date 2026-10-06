@@ -6,7 +6,7 @@ slug = 'ds1'
 +++
 
 ## Intro {.no-counter}
-Hi, this is part 1 of applied science, following the legend Carlos Mercado.
+Hi, this is part 1 of applied data science, following the legend Carlos Mercado.
 
 Probabilty, profit maxxing, game theory, math modeling, optimum result, all are related to applied data science, so here we go... 
 
@@ -69,20 +69,20 @@ When the EV is positive, you expect to make profit,
 
 -----
 
-Example #2: Suppose a coin flip bet, although the coin heads/tails= 50% (true prob.), but the house says the payout odds is x1.90 instead of 2 because of the house/platform fees, so the implied prob is $\frac{1}{1.9} \approx 0.5263$ , this means you need to win over 52.63% of the time to break even.
+Example #2: Suppose a coin flip bet, although the coin heads/tails= 50% (true prob.), the house says the payout odds is x1.90 instead of 2 because of the house/platform fees, so the implied prob is $\frac{1}{1.9} \approx 0.5263$ , this means you need to win over 52.63% of the time to break even.
 so the house edge is 2.63% (True Prob. − Implied Prob.), <br>
 hence house is winning 2.63% on all trades theoretically. 
 
 and your EV in case you bet <span>$1</span> in example 2 is:
 
 $$
-.50 \times 1.9 - 1 = \\$-0.05
+.50 \times 1.9 - 1 = \\\-$0.05
 $$
 
 same as <br>
 
 $$
-(0.5 \times 0.9) - (0.5 \times 1) = \\$-0.05
+(0.5 \times 0.9) - (0.5 \times 1) = \\-$0.05
 $$
 
 <br>
