@@ -137,7 +137,7 @@ $$
 \approx 5.26\\%
 $$
 
-We can calculate **EV for a bet on one outcome**; for **overround**, we use the implied prob. of **all outcomes of an event**.
+We can calculate **EV for one outcome**; for **overround**, we calculate for **all outcomes of an event**.
 
 ## Resources {.no-counter}
 
