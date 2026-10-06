@@ -139,6 +139,8 @@ $$
 
 We can calculate **EV for one outcome**; for **overround**, we calculate for **all outcomes of an event**.
 
+EV and overround are not the same, but they are closely related.
+
 ## Resources {.no-counter}
 
 [Carlos Mercado's Applied Data Science](https://everything-ds.com/)
