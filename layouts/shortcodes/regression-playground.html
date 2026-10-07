@@ -1,0 +1,56 @@
+{{- $id := printf "regression-%d" .Ordinal -}}
+{{- $css := resources.Get "css/regression-playground.css" | minify | fingerprint -}}
+{{- $js := resources.Get "js/regression-playground.js" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+<section class="regression-playground" id="{{ $id }}" data-regression data-src="{{ "data/mvb-attack-errors.json" | relURL }}" aria-label="Men's volleyball regression playground">
+  <div class="rp-heading">
+    <span class="rp-kicker">Men’s volleyball records</span>
+    <span class="rp-records" data-value="records">Loading records…</span>
+  </div>
+  <p class="rp-status" data-status role="status">Loading the recorded match statistics…</p>
+  <div class="rp-interface" hidden>
+    <div class="rp-cohort">
+      <label for="{{ $id }}-year">Match year</label>
+      <select id="{{ $id }}-year" data-control="year"><option value="all">All years · 2021 to 2025</option></select>
+      <button type="button" data-action="fit">Restore fitted line</button>
+    </div>
+    <div class="rp-controls">
+      <div class="rp-control">
+        <label for="{{ $id }}-intercept">Intercept β₀ <output data-value="intercept">0</output></label>
+        <input id="{{ $id }}-intercept" data-control="intercept" type="range" min="-3" max="3" step="0.00001" value="0" aria-describedby="{{ $id }}-help">
+        <span>Moves the line up or down</span>
+      </div>
+      <div class="rp-control">
+        <label for="{{ $id }}-slope">Slope β₁ <output data-value="slope">0</output></label>
+        <input id="{{ $id }}-slope" data-control="slope" type="range" min="-0.1" max="0.5" step="0.00001" value="0" aria-describedby="{{ $id }}-help">
+        <span>Changes errors per extra attempt</span>
+      </div>
+      <div class="rp-control">
+        <label for="{{ $id }}-attempts">Attack attempts X <output data-value="attempts">30</output></label>
+        <input id="{{ $id }}-attempts" data-control="attempts" type="range" min="0" max="83" step="1" value="30">
+        <span>Estimate an average at this workload</span>
+      </div>
+    </div>
+    <p class="rp-equation" data-value="equation" aria-live="off"></p>
+    <div class="rp-metrics" aria-live="off">
+      <div><span>R²</span><strong data-value="r2"></strong></div>
+      <div><span>RMSE · errors</span><strong data-value="rmse"></strong></div>
+      <div><span>Estimated errors at X</span><strong data-value="prediction"></strong></div>
+    </div>
+    <div class="rp-chart-wrap">
+      <svg data-chart role="img" aria-labelledby="{{ $id }}-chart-title {{ $id }}-chart-desc" viewBox="0 0 700 410">
+        <title id="{{ $id }}-chart-title">Attack attempts versus attack errors</title>
+        <desc id="{{ $id }}-chart-desc">Circles represent real player match observations, with size indicating frequency. The line starts at the least squares fit and follows the coefficients as they change.</desc>
+      </svg>
+    </div>
+    <div class="rp-chart-options">
+      <span><i class="rp-key rp-key-line"></i><span data-value="line-label">Fitted line</span></span>
+      <label><input type="checkbox" data-control="residuals"> Show residuals</label>
+    </div>
+    <p class="rp-feedback" data-value="feedback" role="status" aria-live="polite"></p>
+    <p class="rp-help" id="{{ $id }}-help">Moving the coefficients away from their fitted values increases the squared error. Circle size represents record count. R² can be negative when the selected line performs worse than predicting the mean.</p>
+    <p class="rp-source">Recorded data: <a href="https://jeffreyrstevens.github.io/ncaavolleyballr/articles/data.html">Jeffrey R. Stevens’ ncaavolleyballr archive</a> · <a href="{{ "data/mvb-attack-errors.json" | relURL }}" download>Download chart data</a></p>
+  </div>
+  <noscript><p>Enable JavaScript to adjust the line. The R chart and fitted coefficients above are available without it.</p></noscript>
+</section>
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
