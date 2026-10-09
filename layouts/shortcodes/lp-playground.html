@@ -1,0 +1,269 @@
+{{- $mode := .Get "mode" | default "position" -}}
+{{- if not (in (slice "signs" "position" "payoff" "hedge" "put-spread" "put-range" "short-straddle") $mode) -}}
+  {{- errorf "Unknown LP playground mode: %s" $mode -}}
+{{- end -}}
+{{- $id := printf "lp-%s-%d" $mode .Ordinal -}}
+{{- $isRange := eq $mode "put-range" -}}
+{{- $isShortStraddle := eq $mode "short-straddle" -}}
+{{- $isPut := in (slice "put-spread" "put-range") $mode -}}
+{{- $strike := .Get "strike" | default (cond $isRange 100 80) | int -}}
+{{- $width := .Get "width" | default 25 | int -}}
+{{- if and $isPut (or (lt $strike 50) (gt $strike 150)) -}}
+  {{- errorf "LP put spread strike must be between 50 and 150: %d" $strike -}}
+{{- end -}}
+{{- if and $isPut (or (lt $width 5) (gt $width 100)) -}}
+  {{- errorf "LP long put width must be between 5 and 100: %d" $width -}}
+{{- end -}}
+{{- if and $isRange (ne $strike 100) -}}
+  {{- errorf "LP range comparison requires strike 100: %d" $strike -}}
+{{- end -}}
+{{- $factor := add 1 (div $width 100.0) -}}
+{{- $longLower := div $strike $factor -}}
+{{- $longUpper := mul $strike $factor -}}
+{{- $lowerLabel := printf "%.2f" $longLower | replaceRE "\\.00$" "" -}}
+{{- $upperLabel := printf "%.2f" $longUpper | replaceRE "\\.00$" "" -}}
+{{- $netLabel := "flat" -}}
+{{- if $isRange -}}
+  {{- if gt $width 25 -}}{{- $netLabel = "long calendar spread" -}}{{- else if lt $width 25 -}}{{- $netLabel = "short calendar spread" -}}{{- end -}}
+{{- else -}}
+  {{- if lt $strike 100 -}}{{- $netLabel = "put credit spread" -}}{{- else if gt $strike 100 -}}{{- $netLabel = "put debit spread" -}}{{- end -}}
+{{- end -}}
+<section class="lp-playground" id="{{ $id }}" data-lp-playground="{{ $mode }}"{{ if $isPut }} data-lp-strike="{{ $strike }}" data-lp-put-width="{{ $width }}"{{ end }} aria-label="{{ if eq $mode "signs" }}Delta and gamma signs playground{{ else if eq $mode "payoff" }}LP profit and token balances playground{{ else if eq $mode "hedge" }}LP with a fixed ETH hedge{{ else if $isShortStraddle }}LP short put and short call P&amp;L playground{{ else if $isPut }}LP with a perpetual long put at strike {{ $strike }} and range width {{ $width }} percent{{ else }}Uniswap LP value, delta, and gamma playground{{ end }}">
+  <div class="lp-heading">
+    <strong>{{ if eq $mode "signs" }}Delta and gamma signs{{ else if eq $mode "payoff" }}An LP opened at 100{{ else if eq $mode "hedge" }}Hedging the opening delta{{ else if $isShortStraddle }}LP short put + short call{{ else if $isRange }}{{ if gt $width 25 }}Wider{{ else if lt $width 25 }}Narrower{{ else }}Matching{{ end }} buy put range: ±{{ $width }}%{{ else if $isPut }}{{ if lt $strike 100 }}Lower{{ else if gt $strike 100 }}Higher{{ else }}Matching{{ end }} strike: {{ $strike }}{{ else }}An ETH/USDC position{{ end }}</strong>
+    {{ if in (slice "signs" "position") $mode }}<button type="button" data-lp-reset hidden>Reset example</button>{{ end }}
+  </div>
+  <p class="lp-status" data-lp-loading role="status">{{ if in (slice "hedge" "put-spread" "put-range" "short-straddle") $mode }}Loading the charts…{{ else }}Loading the playground…{{ end }}</p>
+  <div data-lp-interface hidden>
+    {{ if eq $mode "signs" }}
+      <p class="lp-note">Illustrative equation: Δ(P) = 1 + Γ × (P − 3,000). Delta starts at 1 when the price is 3,000 USDC per ETH.</p>
+      <div class="lp-controls">
+        <div class="lp-control">
+          <label for="{{ $id }}-price">ETH price <output data-lp-output="price">3,000</output></label>
+          <input id="{{ $id }}-price" data-lp-control="price" type="range" min="2500" max="3500" step="10" value="3000">
+          <span>USDC per ETH</span>
+        </div>
+        <div class="lp-control">
+          <label for="{{ $id }}-gamma">Gamma Γ <output data-lp-output="gamma">−0.0010</output></label>
+          <input id="{{ $id }}-gamma" data-lp-control="gamma" type="range" min="-0.002" max="0.002" step="0.0001" value="-0.001">
+          <span>Change in delta per 1 USDC price increase</span>
+        </div>
+      </div>
+      <div class="lp-presets" aria-label="Gamma examples">
+        <button type="button" data-lp-preset="-0.001" aria-pressed="true">Negative γ</button>
+        <button type="button" data-lp-preset="0" aria-pressed="false">Zero γ</button>
+        <button type="button" data-lp-preset="0.001" aria-pressed="false">Positive γ</button>
+      </div>
+      <div class="lp-metrics">
+        <div><span>Delta at this price</span><strong data-lp-value="delta"></strong></div>
+        <div><span>Gamma</span><strong data-lp-value="gamma"></strong></div>
+        <div><span>Delta change after a +10 USDC price move</span><strong data-lp-value="delta-change"></strong></div>
+      </div>
+      <figure class="lp-chart">
+        <svg data-lp-chart="signs" role="img" aria-labelledby="{{ $id }}-signs-title {{ $id }}-signs-desc" viewBox="0 0 700 250">
+          <title id="{{ $id }}-signs-title">Delta as ETH price changes</title>
+          <desc id="{{ $id }}-signs-desc">Positive gamma makes delta increase as price increases; negative gamma makes it decrease. Zero gamma keeps delta constant. The dot marks the selected price.</desc>
+        </svg>
+        <figcaption>Gamma is the slope of this delta line. The dot marks the selected price.</figcaption>
+      </figure>
+      <p class="lp-feedback" data-lp-feedback role="status" aria-live="polite"></p>
+      <p class="lp-source">This equation illustrates the gamma definition. <a href="https://www.optionseducation.org/advancedconcepts/gamma">Options Industry Council</a>.</p>
+    {{ else if eq $mode "payoff" }}
+      <figure class="lp-chart lp-chart-split">
+        <div class="lp-chart-visual">
+          <svg data-lp-chart="profit" role="img" aria-labelledby="{{ $id }}-profit-title {{ $id }}-profit-desc" viewBox="0 0 700 350">
+            <title id="{{ $id }}-profit-title">LP profit and loss as ETH price changes</title>
+            <desc id="{{ $id }}-profit-desc">The purple curve shows the position's value minus its opening value of 100 USDC, excluding fees. Profit is zero at price 100 and reaches 5.90 USDC at 125, remaining flat above it. Losses greater than 50 USDC are outside the chart's vertical scale.</desc>
+          </svg>
+          <div class="lp-control-panel" role="group" aria-label="Profit chart controls">
+            <div class="lp-controls lp-controls-single">
+              <div class="lp-control">
+                <label for="{{ $id }}-profit-price">ETH price <output data-lp-output="price">100</output></label>
+                <input id="{{ $id }}-profit-price" data-lp-control="price" type="range" min="0" max="200" step="1" value="100">
+                <span>USDC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="lp-chart-description">
+          <p class="lp-chart-title">LP profit and loss</p>
+          <p>The purple curve shows current LP value − opening value.</p>
+          <p class="lp-note">Opening price: 100 USDC.<br>Liquidity range: 80 to 125 (±25% multiplicative).<br>Opening value: 100 USDC.<br>Fees are excluded.</p>
+          <div class="lp-metrics lp-metrics-single">
+            <div><span>Profit / loss · USDC</span><strong data-lp-value="profit"></strong></div>
+          </div>
+          <p class="lp-note">Shading marks the range. The dashed blue line marks the selected price.</p>
+        </figcaption>
+      </figure>
+      <figure class="lp-chart lp-chart-split">
+        <div class="lp-chart-visual">
+          <svg data-lp-chart="balances" role="img" aria-labelledby="{{ $id }}-balances-title {{ $id }}-balances-desc" viewBox="0 0 700 250">
+            <title id="{{ $id }}-balances-title">ETH and USDC held as ETH price changes</title>
+            <desc id="{{ $id }}-balances-desc">Read the purple ETH curve using the left axis and the blue USDC curve using the right axis. At 80 and below, the position holds 1.0590 ETH. At 125 and above, it holds 105.90 USDC. Inside the range, both balances change continuously.</desc>
+          </svg>
+          <div class="lp-control-panel" role="group" aria-label="Token balance chart controls">
+            <div class="lp-controls lp-controls-single">
+              <div class="lp-control">
+                <label for="{{ $id }}-balances-price">ETH price <output data-lp-output="price">100</output></label>
+                <input id="{{ $id }}-balances-price" data-lp-control="price" type="range" min="0" max="200" step="1" value="100">
+                <span>USDC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="lp-chart-description">
+          <p class="lp-note">Initial deposit: 0.5 ETH + 50 USDC.</p>
+          <div class="lp-metrics lp-metrics-balances">
+            <div><span>ETH held</span><strong data-lp-value="eth"></strong></div>
+            <div><span>USDC held</span><strong data-lp-value="usdc"></strong></div>
+          </div>
+          <p class="lp-feedback" data-lp-feedback role="status" aria-live="polite"></p>
+          <p class="lp-source">Calculated using <a href="https://blog.uniswap.org/uniswap-v3-math-primer-2">Uniswap's liquidity equations</a>.</p>
+        </figcaption>
+      </figure>
+    {{ else if eq $mode "hedge" }}
+      <p class="lp-note">Hedge the existing LP by borrowing <strong>0.5 ETH</strong> and selling it for <strong>50 USDC</strong> at price <strong>100</strong>. Keep those USDC alongside the LP.</p>
+      <div class="lp-hedge-charts">
+        <figure class="lp-chart">
+          <p class="lp-chart-title">LP, ETH debt, and net P&amp;L</p>
+          <svg data-lp-chart="hedge-profit" role="img" aria-labelledby="{{ $id }}-hedge-profit-title {{ $id }}-hedge-profit-desc" viewBox="0 0 700 350">
+            <title id="{{ $id }}-hedge-profit-title">Profit and loss of an LP with an ETH debt hedge</title>
+            <desc id="{{ $id }}-hedge-profit-desc">The existing LP starts with 0.5 ETH and 50 USDC at price 100, with a range of 80 to 125. The hedge borrows 0.5 ETH and sells it for 50 USDC, which is held alongside the LP. The dashed line is the P&amp;L contribution from the ETH debt: the amount owed stays at 0.5 ETH, but its USDC value falls as ETH prices fall. The net curve is their sum and peaks at zero when the price is 100. Net value at opening is 100 USDC after including the sale cash and subtracting the debt. The vertical scale shows minus 30 to plus 30 USDC; values beyond those limits are clipped. Fees and borrowing interest are excluded.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span><i class="lp-key lp-key-profit"></i>LP</span><span><i class="lp-key lp-key-short"></i>Borrowed ETH (short)</span><span><i class="lp-key lp-key-net"></i>Net</span></div>
+            <p class="lp-note">At price 100, net delta is zero. A fixed hedge still leaves losses from bigger price moves, before fees.</p>
+          </figcaption>
+        </figure>
+        <figure class="lp-chart">
+          <p class="lp-chart-title">Net tokens after hedging</p>
+          <svg data-lp-chart="hedge-balances" role="img" aria-labelledby="{{ $id }}-hedge-balances-title {{ $id }}-hedge-balances-desc" viewBox="0 0 700 350">
+            <title id="{{ $id }}-hedge-balances-title">Net ETH and USDC balances of the hedged position</title>
+            <desc id="{{ $id }}-hedge-balances-desc">The purple line on the left axis is ETH held in the LP minus the fixed 0.5 ETH debt. The blue line on the right axis is LP USDC plus the 50 USDC cash from selling the borrowed ETH. At price 100, net ETH is zero and USDC is 100. At 80 and below, USDC is 50. At 125 and above, USDC is 155.90. Negative ETH means ETH is owed.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span><i class="lp-key lp-key-eth"></i>ETH · left axis</span><span><i class="lp-key lp-key-usdc"></i>USDC · right axis</span></div>
+            <p class="lp-note">Negative ETH means ETH is owed. USDC includes the 50 held from selling the borrowed ETH.</p>
+          </figcaption>
+        </figure>
+        <figure class="lp-chart">
+          <p class="lp-chart-title">Delta: the hedge shifts the curve</p>
+          <svg data-lp-chart="hedge-delta" role="img" aria-labelledby="{{ $id }}-hedge-delta-title {{ $id }}-hedge-delta-desc" viewBox="0 0 700 300">
+            <title id="{{ $id }}-hedge-delta-title">LP delta compared with ETH debt and net delta</title>
+            <desc id="{{ $id }}-hedge-delta-desc">LP delta decreases within the range. The fixed ETH debt has delta minus 0.5 ETH at every price, shifting net delta down by 0.5 ETH. At the opening price of 100, LP delta is plus 0.5 ETH and net delta is zero. The LP and net curves have the same slope, so gamma is unchanged.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span><i class="lp-key lp-key-profit"></i>LP</span><span><i class="lp-key lp-key-short"></i>Borrowed ETH (short)</span><span><i class="lp-key lp-key-net"></i>Net</span></div>
+            <p class="lp-note">At price 100: <strong>LP +0.5 ETH + debt −0.5 ETH = net 0</strong>. The debt shifts delta down by 0.5 ETH at every price.</p>
+          </figcaption>
+        </figure>
+        <figure class="lp-chart">
+          <p class="lp-chart-title">Gamma: curvature stays the same</p>
+          <svg data-lp-chart="hedge-gamma" role="img" aria-labelledby="{{ $id }}-hedge-gamma-title {{ $id }}-hedge-gamma-desc" viewBox="0 0 700 300">
+            <title id="{{ $id }}-hedge-gamma-title">LP and net gamma overlap after accounting for ETH debt</title>
+            <desc id="{{ $id }}-hedge-gamma-desc">The solid LP curve and dashed net curve overlap exactly. Gamma is negative strictly inside the range of 80 to 125 and zero outside it. The ETH debt has zero gamma, so it does not change the LP's gamma. Open circles show different limits at boundaries, where LP and net gamma are undefined.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span><i class="lp-key lp-key-profit"></i>LP</span><span><i class="lp-key lp-key-short"></i>Borrowed ETH (short)</span><span><i class="lp-key lp-key-net lp-key-net-dashed"></i>Net</span></div>
+            <p class="lp-note"><strong>LP and Net gamma overlap</strong>. The debt's gamma is zero, so the net position keeps the LP's negative gamma inside the range.</p>
+          </figcaption>
+        </figure>
+      </div>
+    {{ else if $isShortStraddle }}
+      <div class="lp-hedge-charts lp-spread-charts">
+        <figure class="lp-chart">
+          <p class="lp-chart-title">P&amp;L in USDC per 1 ETH of notional, before fees</p>
+          <svg data-lp-chart="straddle-profit" role="img" aria-labelledby="{{ $id }}-straddle-profit-title {{ $id }}-straddle-profit-desc" viewBox="0 0 700 350">
+            <title id="{{ $id }}-straddle-profit-title">LP short put and short call profit and loss</title>
+            <desc id="{{ $id }}-straddle-profit-desc">Both strikes are fixed at 100 and both ranges are 80 to 125. Both legs are normalized to one ETH of notional below their ranges, as in the original reference chart. Magenta shows the LP short put, dashed blue shows the short call, and teal shows their sum. Profit and loss is measured in USDC from price 100. The chart clips values below minus 50 USDC and above 10 USDC. Fees and option costs are excluded.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span class="lp-legend-sell"><i class="lp-key lp-key-profit"></i>SELL PUT (LP) · strike 100</span><span class="lp-legend-call"><i class="lp-key lp-key-short"></i>SELL CALL (short call) · strike 100</span><span><i class="lp-key lp-key-net"></i>Net: short straddle</span></div>
+            <p class="lp-note">Fees and option costs are excluded.</p>
+          </figcaption>
+        </figure>
+        <figure class="lp-chart">
+            <p class="lp-chart-title">Net token balances</p>
+            <svg data-lp-chart="straddle-balances" role="img" aria-labelledby="{{ $id }}-straddle-balances-title {{ $id }}-straddle-balances-desc" viewBox="0 0 700 300">
+              <title id="{{ $id }}-straddle-balances-title">Net ETH and USDC held as ETH price changes</title>
+              <desc id="{{ $id }}-straddle-balances-desc">Both legs use one ETH of notional, as in the original reference chart. Purple net ETH uses the left axis, from minus one to plus one ETH. Blue net USDC uses the right axis, from minus 250 to plus 250 USDC. Zero is at the same height on both axes. Below the range, net ETH is plus one and USDC is zero. Above the range, net ETH is minus one and USDC is 200. Negative ETH represents a liability.</desc>
+            </svg>
+            <figcaption>
+              <div class="lp-legend"><span><i class="lp-key lp-key-eth"></i>ETH · left axis</span><span><i class="lp-key lp-key-usdc"></i>USDC · right axis</span></div>
+              <p class="lp-note">Both ranges: 80 to 125.<br>Negative ETH means ETH is owed.</p>
+            </figcaption>
+        </figure>
+      </div>
+    {{ else if $isPut }}
+      <div class="lp-hedge-charts lp-spread-charts">
+        <figure class="lp-chart">
+          <p class="lp-chart-title">Sell put, buy put, and net P&amp;L</p>
+          <svg data-lp-chart="spread-profit" role="img" aria-labelledby="{{ $id }}-spread-profit-title {{ $id }}-spread-profit-desc" viewBox="0 0 700 350">
+            <title id="{{ $id }}-spread-profit-title">LP plus a perpetual long put at strike {{ $strike }} with range {{ $lowerLabel }} to {{ $upperLabel }}</title>
+            <desc id="{{ $id }}-spread-profit-desc">The LP opens with 0.5 ETH and 50 USDC at price 100 over the range 80 to 125. A perpetual long put reverses an LP range centered on {{ $strike }}, from {{ $lowerLabel }} to {{ $upperLabel }}, with the same ETH notional below its range. Magenta shows LP profit, dashed blue shows long put profit, and teal shows their sum. Each profit is measured from price 100. {{ if $isRange }}The vertical scale clips values outside minus 15 to plus 10 USDC.{{ else }}The vertical scale clips values outside minus 50 to plus 50 USDC.{{ end }} Fees and option costs are excluded.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span class="lp-legend-sell"><i class="lp-key lp-key-profit"></i>SELL PUT (LP) · {{ if $isRange }}±25%{{ else }}strike 100{{ end }}</span><span class="lp-legend-buy"><i class="lp-key lp-key-short"></i>BUY PUT (long put) · {{ if $isRange }}±{{ $width }}%{{ else }}strike {{ $strike }}{{ end }}</span><span><i class="lp-key lp-key-net"></i>Net: {{ $netLabel }}</span></div>
+            <p class="lp-note">{{ if $isRange }}{{ if gt $width 25 }}The wider buy put range creates a hump near price 100. Below {{ $lowerLabel }} and above {{ $upperLabel }}, net losses stop growing.{{ else if lt $width 25 }}The narrower buy put range creates a dip near price 100. Outside the LP range, net P&amp;L becomes flat.{{ else }}Matching ranges and ETH notional cancel the price exposure at every price, before costs.{{ end }}{{ else }}{{ if lt $strike 100 }}Below price {{ $lowerLabel }}, the net loss stops growing. The long put offsets further LP losses.{{ else if gt $strike 100 }}The net curve falls as ETH rises and becomes flat above price {{ $upperLabel }}.{{ else }}Matching ranges and ETH notional cancel the price exposure at every price, before costs.{{ end }}{{ end }}</p>
+          </figcaption>
+        </figure>
+        <figure class="lp-chart">
+          <p class="lp-chart-title">Net token balances</p>
+          <svg data-lp-chart="spread-balances" role="img" aria-labelledby="{{ $id }}-spread-balances-title {{ $id }}-spread-balances-desc" viewBox="0 0 700 300">
+            <title id="{{ $id }}-spread-balances-title">Net ETH and USDC exposure with long put strike {{ $strike }} and range {{ $lowerLabel }} to {{ $upperLabel }}</title>
+            <desc id="{{ $id }}-spread-balances-desc">Purple ETH uses the left axis, from minus one to plus one. Blue USDC uses the right axis, from minus {{ if $isRange }}100{{ else }}180{{ end }} to plus {{ if $isRange }}100{{ else }}180{{ end }}. The long put subtracts its range's token balances from the LP's balances. These are signed token exposures in the simplified model, not wallet collateral balances. Negative balances represent liabilities. The two balances cancel at every price when strike, width, and ETH notional match.</desc>
+          </svg>
+          <figcaption>
+            <div class="lp-legend"><span><i class="lp-key lp-key-eth"></i>ETH · left axis</span><span><i class="lp-key lp-key-usdc"></i>USDC · right axis</span></div>
+            <p class="lp-note">LP (sell put) range: 80 to 125.<br>Long put (buy put) range: {{ $lowerLabel }} to {{ $upperLabel }}.<br>Negative balances represent liabilities in this model.</p>
+          </figcaption>
+        </figure>
+      </div>
+    {{ else }}
+      <p class="lp-note">Opened at 3,000 USDC per ETH with 1 ETH + 3,000 USDC. Every range setting uses this same initial deposit.</p>
+      <div class="lp-controls">
+        <div class="lp-control">
+          <label for="{{ $id }}-price">ETH price <output data-lp-output="price">3,000</output></label>
+          <input id="{{ $id }}-price" data-lp-control="price" type="range" min="1000" max="6500" step="50" value="3000">
+          <span>USDC per ETH</span>
+        </div>
+        <div class="lp-control">
+          <label for="{{ $id }}-width">Liquidity range <output data-lp-output="range">2,000 to 4,500</output></label>
+          <input id="{{ $id }}-width" data-lp-control="width" type="range" min="10" max="100" step="5" value="50" aria-label="Liquidity range width">
+          <span>Move right for a wider range</span>
+        </div>
+      </div>
+      <div class="lp-metrics">
+        <div><span>Position value · USDC</span><strong data-lp-value="value"></strong></div>
+        <div><span>Delta · ETH</span><strong data-lp-value="delta"></strong></div>
+        <div><span>Gamma · delta change per 1 USDC price move</span><strong data-lp-value="gamma"></strong></div>
+      </div>
+      <p class="lp-balances" data-lp-balances></p>
+      <figure class="lp-chart">
+        <figcaption class="lp-chart-title">Position value</figcaption>
+        <svg data-lp-chart="value" role="img" aria-labelledby="{{ $id }}-value-title {{ $id }}-value-desc" viewBox="0 0 700 190">
+          <title id="{{ $id }}-value-title">LP value compared with holding the initial tokens</title>
+          <desc id="{{ $id }}-value-desc">The solid curve is the LP position. The dashed line holds the original 1 ETH and 3,000 USDC. The shaded area is the liquidity range.</desc>
+        </svg>
+        <div class="lp-legend"><span><i class="lp-key"></i>LP position</span><span><i class="lp-key lp-key-hold"></i>Hold initial tokens</span></div>
+      </figure>
+      <figure class="lp-chart">
+        <figcaption class="lp-chart-title">Delta: ETH held in the position</figcaption>
+        <svg data-lp-chart="delta" role="img" aria-labelledby="{{ $id }}-delta-title {{ $id }}-delta-desc" viewBox="0 0 700 190">
+          <title id="{{ $id }}-delta-title">LP delta as ETH price changes</title>
+          <desc id="{{ $id }}-delta-desc">Delta is constant below the range, decreases within it, and is zero above it.</desc>
+        </svg>
+      </figure>
+      <figure class="lp-chart">
+        <figcaption class="lp-chart-title">Gamma: how delta changes with price</figcaption>
+        <svg data-lp-chart="gamma" role="img" aria-labelledby="{{ $id }}-gamma-title {{ $id }}-gamma-desc" viewBox="0 0 700 190">
+          <title id="{{ $id }}-gamma-title">LP gamma as ETH price changes</title>
+          <desc id="{{ $id }}-gamma-desc">Gamma is negative strictly inside the liquidity range and zero outside it. Open circles mark the different limits at each boundary, where gamma is undefined.</desc>
+        </svg>
+      </figure>
+      <p class="lp-feedback" data-lp-feedback role="status" aria-live="polite"></p>
+      <p class="lp-source"><a href="https://ledgerjournal.org/ojs/ledger/article/download/389/281/2162#page=14">Delta and gamma derivation</a>.</p>
+    {{ end }}
+  </div>
+  <noscript><p>Enable JavaScript to {{ if eq $mode "hedge" }}view the charts. Borrowing 0.5 ETH and selling it for 50 USDC offsets the existing LP's opening delta at price 100. The cash is held alongside the LP. The fixed ETH debt leaves negative gamma. Fees, borrowing interest, and lending collateral are excluded.{{ else if $isPut }}view the LP and perpetual long put comparison at strike {{ $strike }} with range {{ $lowerLabel }} to {{ $upperLabel }}. {{ if $isRange }}A wider buy put range produces a hump, a narrower range produces a dip, and matching ranges cancel the price exposure.{{ else }}A lower strike caps losses below both ranges; a higher strike gives a bearish spread; identical ranges and notional cancel price exposure.{{ end }} Fees and option costs are excluded.{{ else }}explore the example. {{ if eq $mode "payoff" }}This LP opens with 0.5 ETH and 50 USDC, holds 1.0590 ETH at prices of 80 and below, and 105.90 USDC at prices of 125 and above.{{ else }}A standard LP has negative gamma inside its range and zero gamma outside it, ignoring fees.{{ end }}{{ end }}</p></noscript>
+</section>

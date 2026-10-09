@@ -14,11 +14,18 @@
 {{ partialCached "head/favicon.html" . }}
 {{ partialCached "head/css.html" . }}
 
+{{ if .HasShortcode "lp-playground" }}
+  {{ $css := resources.Get "css/lp-playground.css" | minify | fingerprint }}
+  {{ $js := resources.Get "js/lp-playground.js" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{ end }}
+
 <!-- MathJax -->
 <script>
 MathJax = {
   tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
+    inlineMath: [{{ if ne .Params.math_inline_dollars false }}['$', '$'], {{ end }}['\\(', '\\)']]
   },
   svg: {
     fontCache: 'global'
